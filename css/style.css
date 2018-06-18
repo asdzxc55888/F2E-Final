@@ -1,0 +1,40 @@
+body
+{
+    font-family: Microsoft JhengHei;
+}
+.logo
+{
+    width: 40px;
+    margin-right: 16px;
+}
+
+.nav-item
+{
+    margin-left: 60px;
+}
+
+header
+{
+    margin-top: 50px;
+}
+
+.triangle
+{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 15em 5em 15em;
+    border-color: transparent transparent #007bff transparent;
+    margin-top: -5em;
+    z-index: 20;
+}
+
+.section-brand
+{
+    
+}
+
+.section-brand h2
+{
+    margin-top: 75px;
+}
