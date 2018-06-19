@@ -23,9 +23,9 @@ header
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 0 15em 5em 15em;
-    border-color: transparent transparent #007bff transparent;
-    margin-top: -5em;
+    border-width: 0 25vw 10vw 25vw;
+    border-color: transparent transparent #79baff transparent;
+    margin-top: -10vw;
     z-index: 20;
 }
 
