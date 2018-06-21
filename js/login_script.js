@@ -52,8 +52,6 @@ $(document).ready(function () {
         firebase.auth().signOut();
         console.log('LogOut');
         $signInfo.html('No one login...');
-        $btnSignOut.attr('disabled', 'disabled');
-        $btnSignIn.removeAttr('disabled')
         $message.html('');
       });
 
@@ -61,6 +59,8 @@ $(document).ready(function () {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             console.log('SignIn ' + user.email);
+            console.log('SignIn ');
+            console.log('SignIn ' + user.displayName);
             $signInfo.html(user.email + " is login...");
         } else {
             console.log("not logged in");

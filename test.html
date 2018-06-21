@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>思汗牧場 會員登入</title>
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
 </head>
 
 <body>
     <h1>Hello
-        <span class="idName"></span>
+        <span id="idName"></span>
     </h1>
 </body>
 <script>
@@ -38,7 +38,7 @@
     }
 
     function app(user) {
-        document.getElementById("idName").innerHTML = user.displayName;
+        document.getElementById("#idName").innerHTML = user.displayName;
     }
 
     window.onload = login;
