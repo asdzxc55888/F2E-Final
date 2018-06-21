@@ -84,8 +84,8 @@ $(document).ready(function () {
     });
 
     $btnFBSingIn.click(function () {
-        var provider = new firebase.auth.FacebookAuthProvider();
-        firebase.auth().signInWithRedirect(provider);
+        var FBprovider = new firebase.auth.FacebookAuthProvider();
+        firebase.auth().signInWithRedirect(FBprovider);
         console.log('進來了好棒2');
     });
 
@@ -99,10 +99,12 @@ $(document).ready(function () {
         if (result.credential) {
           // This gives you a Facebook Access Token. You can use it to access the Facebook API.
           var token = result.credential.accessToken;
+          console.log(token);
           // ...
         }
         // The signed-in user info.
         var user = result.user;
+        console.log(user);
       }).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -111,6 +113,10 @@ $(document).ready(function () {
         var email = error.email;
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
+        console.log(errorCode);
+        console.log(errorMessage);
+        console.log(email);
+        console.log(credential);
         // ...
       });
 
