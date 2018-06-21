@@ -62,7 +62,13 @@ $(document).ready(function () {
         if (user) {
             console.log('SignIn ' + user.email);
             console.log('SignIn ' + user.displayName);
-            $signInfo.html(user.email + " is login...");
+            if(user.displayName)
+            {
+                $signInfo.html(user.displayName + " is login...");
+            }else
+            {
+                $signInfo.html(user.email + " is login...");
+            }
         } else {
             console.log("not logged in");
         }
