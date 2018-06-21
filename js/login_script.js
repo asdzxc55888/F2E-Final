@@ -21,6 +21,7 @@ $(document).ready(function () {
     const $signInfo = $('#sign-info');
     const $btnGoogleSingIn = $('#btnGoogleSingIn');
     const $btnFBSingIn = $('#btnFBSingIn');
+    const $btnTwitterSingIn = $('#btnTwitterSingIn');
 
     var user = firebase.auth().currentUser;
     if (user) {
@@ -87,6 +88,12 @@ $(document).ready(function () {
         var FBprovider = new firebase.auth.FacebookAuthProvider();
         firebase.auth().signInWithRedirect(FBprovider);
         console.log('進來了好棒2');
+    });
+
+    $btnTwitterSingIn.click(function () {
+        var Twprovider = new firebase.auth.TwitterAuthProvider();
+        firebase.auth().signInWithRedirect(Twprovider);
+        console.log('進來了好棒3');
     });
 
     $btnGoogleSingIn.click(function () {
