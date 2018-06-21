@@ -20,6 +20,7 @@ $(document).ready(function () {
     const $btnSignOut = $('#btnSignOut');
     const $signInfo = $('#sign-info');
     const $btnGoogleSingIn = $('#btnGoogleSingIn');
+    const $btnFBSingIn=$('#btnFBSingIn');
 
     var user = firebase.auth().currentUser;
     if (user) {
@@ -59,7 +60,6 @@ $(document).ready(function () {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             console.log('SignIn ' + user.email);
-            console.log('SignIn ');
             console.log('SignIn ' + user.displayName);
             $signInfo.html(user.email + " is login...");
         } else {
@@ -81,6 +81,12 @@ $(document).ready(function () {
             dbRef.push({ name: username, text: message });
             $messageField.val('');
         }
+    });
+
+    $btnFBSingIn.click(function(){
+        var provider = new firebase.auth.FacebookAuthProvider();
+        firebase.auth().signInWithRedirect(provider);
+        console.log('進來了好棒2');
     });
 
     $btnGoogleSingIn.click(function () {
