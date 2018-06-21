@@ -22,9 +22,6 @@
     <!-- ICON 連結 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- google 連結 -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
 
@@ -37,7 +34,8 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#"><img width="40px" class="logo" src="img/index/logo.png">思汗牧場</a>
+            <a class="navbar-brand" href="#">
+                <img width="40px" class="logo" src="img/index/logo.png">思汗牧場</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -70,8 +68,8 @@
                 </a>
                 <a href="#" class="btn btn-info btn-lg" title="Twitter">
                     <i class="fa fa-twitter"></i>
-                </a>                
-                <a href="#" class="btn btn-danger btn-lg g-signin2" title="Google" id="btnGoogleSingIn">
+                </a>
+                <a class="btn btn-danger btn-lg g-signin2" title="Google" id="btnGoogleSingIn">
                     <i class="fa fa-google"></i>
                 </a>
             </div>
@@ -85,7 +83,7 @@
                 <input type="password" class="form-control input-lg" name="password" placeholder="輸入您的密碼" required="required" id="password">
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-success btn-lg btn-block signup-btn" id"btnSignIn">Sign in</button>
+                <a type="submit" class="btn btn-success btn-lg btn-block signup-btn" id="btnSignIn">Sign in</a>
             </div>
 
             <div class="mdl-card__supporting-text" id="sign-info">No one login...</div>
@@ -95,7 +93,7 @@
             </div>
         </form>
         <div class="text-center small">Don't have an account?
-            <a href="#">Sign up</a>
+            <a href="#" id="btnSignOut">Sign up</a>
         </div>
     </div>
 </body>
