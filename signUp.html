@@ -25,7 +25,7 @@
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
 
-    <script src="js/login_script.js"></script>
+    <script src="js/signup_script.js"></script>
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login_style.css">
@@ -46,10 +46,10 @@
                         <a class="nav-link" href="#">購物車</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">加入會員</a>
+                        <a class="nav-link active" href="#">加入會員</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">會員登入</a>
+                        <a class="nav-link" href="#">會員登入</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">聯絡我們</a>
@@ -60,30 +60,24 @@
     </nav>
     <div class="signin-form login-area">
         <form action="#" method="post">
-            <h2>會員登入</h2>
-            <p class="hint-text">使用社群帳號登入</p>
-            <div class="social-btn text-center">
-                <a href="#" class="btn btn-primary btn-lg" title="Facebook" id="btnFBSingIn">
-                    <i class="fa fa-facebook"></i>
-                </a>
-                <a href="#" class="btn btn-info btn-lg" title="Twitter" id="btnTwitterSingIn">
-                    <i class="fa fa-twitter"></i>
-                </a>
-                <a class="btn btn-danger btn-lg g-signin2" title="Google" id="btnGoogleSingIn">
-                    <i class="fa fa-google"></i>
-                </a>
-            </div>
-            <div class="or-seperator">
-                <b>or</b>
+			<h2>會員註冊</h2>
+			<div class="or-seperator">
+                <b></b>
+			</div>
+			<div class="form-group">
+                <input type="text" class="form-control input-lg" name="username" placeholder="輸入您的暱稱" required="required" id="username">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control input-lg" name="username" placeholder="電子信箱" required="required" id="email">
+                <input type="text" class="form-control input-lg" name="email" placeholder="電子信箱" required="required" id="email">
             </div>
             <div class="form-group">
                 <input type="password" class="form-control input-lg" name="password" placeholder="輸入您的密碼" required="required" id="password">
-            </div>
+			</div>
+			<div class="form-group">
+                <input type="password" class="form-control input-lg" name="password" placeholder="重複確認輸入密碼" required id="confirmPassword">
+			</div>
             <div class="form-group">
-                <button type="submit" class="btn btn-success btn-lg btn-block signup-btn" id="btnSignIn">登入</button>
+                <a type="submit" class="btn btn-success btn-lg btn-block signup-btn" id="btnSignUp">註冊</a>
             </div>
 
             <div class="mdl-card__supporting-text" id="sign-info">No one login...</div>
