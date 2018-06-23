@@ -93,19 +93,19 @@ $(document).ready(function () {
     $btnFBSingIn.click(function () {
         var FBprovider = new firebase.auth.FacebookAuthProvider();
         firebase.auth().signInWithRedirect(FBprovider);
-        console.log('進來了好棒2');
+        console.log('FBSingIn Function');
     });
 
     $btnTwitterSingIn.click(function () {
         var Twprovider = new firebase.auth.TwitterAuthProvider();
         firebase.auth().signInWithRedirect(Twprovider);
-        console.log('進來了好棒3');
+        console.log('TwitterSingIn Function');
     });
 
     $btnGoogleSingIn.click(function () {
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithRedirect(provider);
-        console.log('進來了好棒');
+        console.log('GoogleSingIn Function');
     });
 
     firebase.auth().getRedirectResult().then(function(result) {
