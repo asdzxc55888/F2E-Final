@@ -31,9 +31,16 @@ $(document).ready(function () {
     password.onchange = validatePassword;
     confirmPassword.onkeyup = validatePassword;
 
-    $("form").submit(function(){
+    $("form").submit(function () {
         return false;
     })
+
+    function writeUserData(userId, name, email) {
+        dbRef.child('users:' + userId).set({
+            username: name,
+            email: email,
+        });
+    }
 
     $btnSignUp.click(function () {
         if (password.value == confirmPassword.value) {
@@ -44,19 +51,26 @@ $(document).ready(function () {
             // signUp
             console.log('signup function')
             const promise = auth.createUserWithEmailAndPassword(email, pass);
-            dbRef.set({
-                user:{name: username.val(), email: email.val()}
-            })
-            promise.catch(function (e) {
+            console.log(promise);
+
+            promise.then(function(user){
+                //  將資料寫入database
+                auth.signInWithEmailAndPassword(email, pass);
+                var user = firebase.auth().currentUser;
+                writeUserData(user.uid, username, email);
+                console.log("創建帳號成功");
+
+              }).catch(function (e) {
                 console.log(e.message);
                 $signInfo.html(e.message);
+                console.log("創建帳號失敗");
             });
-        }else{
+        } else {
             console.log('signup function cant in');
         }
     })
 
-    
+
 
     // Listening Login User
     firebase.auth().onAuthStateChanged(function (user) {
