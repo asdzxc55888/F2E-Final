@@ -10,6 +10,7 @@ $(document).ready(function () {
     };
     firebase.initializeApp(config);
 
+
     var dbRef = firebase.database().ref();
     // REGISTER DOM ELEMENTS
     const $email = $('#email');
@@ -21,19 +22,24 @@ $(document).ready(function () {
     const $btnFBSingIn = $('#btnFBSingIn');
     const $btnTwitterSingIn = $('#btnTwitterSingIn');
 
+
     var user = firebase.auth().currentUser;
     if (user) {
         $btnSignIn.attr('disabled', 'disabled');
         $btnSignOut.removeAttr('disabled');
+        document.getElementById("nav-login").style.display="none";
+        console.log('1');
     } else {
         $btnSignOut.attr('disabled', 'disabled');
         $btnSignIn.removeAttr('disabled');
+        console.log('2');
+        console.log(user);
     }
 
     $("form").submit(function(){
         return false;
     })
-    
+
     // SignIn
     $btnSignIn.click(function (e) {
         const email = $email.val();
@@ -63,6 +69,7 @@ $(document).ready(function () {
         if (user) {
             console.log('SignIn ' + user.email);
             console.log('SignIn ' + user.displayName);
+            document.getElementById("nav-login").style.display="none";
             if(user.displayName)
             {
                 $signInfo.html(user.displayName + " is login...");
