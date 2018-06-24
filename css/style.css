@@ -28,12 +28,34 @@ header
     margin-top: -10vw;
     z-index: 20;
 }
-.section-brand
-{
-    
+.section{
+    padding-top:30px;
+    background-color: #79baff;
+    color: white;
 }
-
-.section-brand h2
-{
-    margin-top: 75px;
+.text{
+    color: #61991c;
+    font-weight: bold;
+    padding-left:10%;
+    padding-right:10%;
+}
+.text1{
+    color: #61991c;
+    font-weight: bold;
+    padding-left:10%;
+    padding-right:10%;
+    padding-top: 10%;
+}
+.img{
+    padding-right:10%;
+    padding-left: 30px;
+    float: right;
+}
+.p{
+    padding-top:2%;
+    padding-left:10%;
+    padding-right:30%;   
+}
+.footer{
+    background-color:#6ea924;
 }
