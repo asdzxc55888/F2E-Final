@@ -33,6 +33,9 @@ header
     background-color: #79baff;
     color: white;
 }
+.store{
+    padding-top: 3%;
+}
 .text{
     color: #61991c;
     font-weight: bold;
@@ -58,10 +61,29 @@ header
 }
 .footer{
     background-color:#6ea924;
+    padding-left: 10%;
+    padding-right: 10%;
 }
-.section-brand h2{
-    margin-top: 75px;
+.footerp{
+    background-color:#6ea924;
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: left;
+}
+.footerp1{
+    background-color:#6ea924;
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: right;
 }
 .icon_img{
     margin-right: 4px;
+}
+@media only screen and (max-width: 480px) {
+    .footerp{
+        text-align: center;
+    }
+    .footerp1{
+        text-align: center;
+    }
 }
