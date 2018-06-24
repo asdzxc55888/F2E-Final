@@ -12,8 +12,6 @@ $(document).ready(function () {
 
     var dbRef = firebase.database().ref();
     // REGISTER DOM ELEMENTS
-    const $messageField = $('#messageInput');
-    const $nameField = $('#nameInput');
     const $email = $('#email');
     const $password = $('#password');
     const $btnSignIn = $('#btnSignIn');
@@ -32,7 +30,10 @@ $(document).ready(function () {
         $btnSignIn.removeAttr('disabled');
     }
 
-
+    $("form").submit(function(){
+        return false;
+    })
+    
     // SignIn
     $btnSignIn.click(function (e) {
         const email = $email.val();
@@ -71,22 +72,6 @@ $(document).ready(function () {
             }
         } else {
             console.log("not logged in");
-        }
-    });
-
-
-    // LISTEN FOR KEYPRESS EVENT
-    $messageField.keypress(function (e) {
-        if (e.keyCode == 13) {
-            //FIELD VALUES
-            var username = $nameField.val();
-            var message = $messageField.val();
-            console.log(username);
-            console.log(message);
-
-            //SAVE DATA TO FIREBASE AND EMPTY FIELD
-            dbRef.push({ name: username, text: message });
-            $messageField.val('');
         }
     });
 

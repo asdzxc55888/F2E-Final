@@ -21,53 +21,42 @@ $(document).ready(function () {
 
     // 密碼驗證
     function validatePassword() {
-        if (password.value != $confirmPassword.value) {
-            $confirmPassword.setCustomValidity("密碼不一致");
-            return true;
+        if (password.value != confirmPassword.value) {
+            confirmPassword.setCustomValidity("密碼不一致");
         } else {
-            $confirmPassword.setCustomValidity('');
-            return false;
+            confirmPassword.setCustomValidity('');
         }
     }
 
-    $password.onchange = validatePassword;
-    $confirmPassword.onkeyup = validatePassword;
+    password.onchange = validatePassword;
+    confirmPassword.onkeyup = validatePassword;
 
-
-    var user = firebase.auth().currentUser;
-    if (user) {
-        $btnSignIn.attr('disabled', 'disabled');
-        $btnSignOut.removeAttr('disabled');
-    } else {
-        $btnSignOut.attr('disabled', 'disabled');
-        $btnSignIn.removeAttr('disabled');
-    }
-
-
-    $btnSignUp.click(function () {
-        const email = $email.val();
-        const pass = $password.val();
-        const username = $username.val();
-        const auth = firebase.auth();
-        // signUp
-        console.log('signup function')
-        const promise = auth.createUserWithEmailAndPassword(email, pass);
-        dbRef.child("users").set({
-            name: username, email: email
-        })
-        promise.catch(function (e) {
-            console.log(e.message);
-            $signInfo.html(e.message);
-        });
+    $("form").submit(function(){
+        return false;
     })
 
+    $btnSignUp.click(function () {
+        if (password.value == confirmPassword.value) {
+            const email = $email.val();
+            const pass = $password.val();
+            const username = $username.val();
+            const auth = firebase.auth();
+            // signUp
+            console.log('signup function')
+            const promise = auth.createUserWithEmailAndPassword(email, pass);
+            dbRef.set({
+                user:{name: username.val(), email: email.val()}
+            })
+            promise.catch(function (e) {
+                console.log(e.message);
+                $signInfo.html(e.message);
+            });
+        }else{
+            console.log('signup function cant in');
+        }
+    })
 
-    $btnSignOut.click(function () {
-        firebase.auth().signOut();
-        console.log('LogOut');
-        $signInfo.html('No one login...');
-        $message.html('');
-    });
+    
 
     // Listening Login User
     firebase.auth().onAuthStateChanged(function (user) {
