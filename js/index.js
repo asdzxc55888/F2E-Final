@@ -1,15 +1,3 @@
-$(function(){
-    var $item = $('.carousel .item'); 
-    var $wHeight = $(window).height();
-    $item.height($wHeight); 
-    $item.addClass('full-screen');
-
-
-    $('.carousel').carousel({
-        interval: 4000,
-        ride:true
-      }) 
-});
 $(document).ready(function () {
     // Initialize Firebase
     var config = {
@@ -23,6 +11,10 @@ $(document).ready(function () {
     firebase.initializeApp(config);
 
     var dbRef = firebase.database().ref();
+    var $item = $('.carousel .item'); 
+    var $wHeight = $(window).height();
+    $item.height($wHeight); 
+    $item.addClass('full-screen');
 
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -56,4 +48,8 @@ $(document).ready(function () {
             console.log("not logged in");
         }
     });
+    $('.carousel').carousel({
+        interval: 4000,
+        ride:true
+    }) 
 });
