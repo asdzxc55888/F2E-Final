@@ -17,7 +17,16 @@ $(document).ready(function () {
     const $username = $('#username');
     const $btnSignUp = $('#btnSignUp');
     const $signInfo = $('#sign-info');
-    const $confirmPassword = $('#btnTwitterSingIn');
+    const $confirmPassword = $('#confirmPassword');
+
+    var user = firebase.auth().currentUser;
+
+    if(user){
+        $navSignup.style.display="none";
+        console.log("有使用者");
+    }else{
+        console.log("無使用者");
+    }
 
     // 密碼驗證
     function validatePassword() {
@@ -42,6 +51,7 @@ $(document).ready(function () {
         });
     }
 
+    //  註冊
     $btnSignUp.click(function () {
         if (password.value == confirmPassword.value) {
             const email = $email.val();
@@ -59,7 +69,7 @@ $(document).ready(function () {
                 var user = firebase.auth().currentUser;
                 writeUserData(user.uid, username, email);
                 console.log("創建帳號成功");
-
+                alert("註冊成功!");
               }).catch(function (e) {
                 console.log(e.message);
                 $signInfo.html(e.message);
@@ -70,13 +80,31 @@ $(document).ready(function () {
         }
     })
 
-
-
     // Listening Login User
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
+            window.user = user;
             console.log('SignIn ' + user.email);
             console.log('SignIn ' + user.displayName);
+            document.getElementById("nav-SignUp").style.display='none';
+            $('#nav-SignUp').removeClass('nav-item');
+            document.getElementById("nav-login").style.display='none';
+            $('#nav-login').removeClass('nav-item');
+            var username = user.displayName;
+
+            if(username==undefined){
+               dbRef.child('users:'+user.uid).on('value', function (snapshot) {
+                    var data = snapshot.val();
+                    console.log(data);
+                    username=data.username;
+                    console.log(username);
+                    document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!"+username+"</a>";
+                });
+            }else{
+                document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!"+user.displayName+"</a>";
+            }
+
+
             if (user.displayName) {
                 $signInfo.html(user.displayName + " is login...");
             } else {

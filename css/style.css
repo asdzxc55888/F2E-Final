@@ -59,3 +59,9 @@ header
 .footer{
     background-color:#6ea924;
 }
+.section-brand h2{
+    margin-top: 75px;
+}
+.icon_img{
+    margin-right: 4px;
+}
