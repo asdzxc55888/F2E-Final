@@ -69,7 +69,25 @@ $(document).ready(function () {
         if (user) {
             console.log('SignIn ' + user.email);
             console.log('SignIn ' + user.displayName);
-            document.getElementById("nav-login").style.display="none";
+            
+            document.getElementById("nav-SignUp").style.display='none';
+            $('#nav-SignUp').removeClass('nav-item');
+            document.getElementById("nav-login").style.display='none';
+            $('#nav-login').removeClass('nav-item');
+            var username = user.displayName;
+
+            if(username==undefined){
+               dbRef.child('users:'+user.uid).on('value', function (snapshot) {
+                    var data = snapshot.val();
+                    console.log(data);
+                    username=data.username;
+                    console.log(username);
+                    document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!"+username+"</a>";
+                });
+            }else{
+                document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!"+user.displayName+"</a>";
+            }
+
             if(user.displayName)
             {
                 $signInfo.html(user.displayName + " is login...");
