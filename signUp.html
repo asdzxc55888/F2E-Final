@@ -20,7 +20,8 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 	<!-- ICON 連結 -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+	 crossorigin="anonymous">
 
 	<!-- Firebase -->
 	<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
@@ -29,30 +30,35 @@
 
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/login_style.css">
+	<link rel="stylesheet" href="css/signup_style.css">
 </head>
 
-<body display="none">
+<body id="paint">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="index.html">思汗牧場</a>
+			<a class="navbar-brand" href="index.html"><img class="logo" src="img/index/logo.png">思汗牧場</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
 			 aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li id="nav-user"></li>
+					<li class="nav-item" id="nav-user"></li>
 					<li class="nav-item">
-						<a class="nav-link" href="#"><i class="fas fa-shopping-cart icon_img"></i>購物車</a>
+						<a class="nav-link" href="#">
+							<i class="fas fa-shopping-cart icon_img"></i>購物車</a>
 					</li>
 					<li class="nav-item" id="nav-SignUp">
-						<a class="nav-link" href="signUp.html" id="nav-SignUp"><i class="fas fa-user-plus icon_img"></i>加入會員</a>
+						<a class="nav-link" href="signUp.html" id="nav-SignUp">
+							<i class="fas fa-user-plus icon_img"></i>加入會員</a>
 					</li>
 					<li class="nav-item" id="nav-login">
-						<a class="nav-link" href="login.html" id="nav-login"><i class="fas fa-sign-in-alt icon_img"></i>會員登入</a>
+						<a class="nav-link" href="login.html" id="nav-login">
+							<i class="fas fa-sign-in-alt icon_img"></i>會員登入</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#"><i class="far fa-envelope icon_img"></i>聯絡我們</a>
+						<a class="nav-link" href="#">
+							<i class="far fa-envelope icon_img"></i>聯絡我們</a>
 					</li>
 				</ul>
 			</div>

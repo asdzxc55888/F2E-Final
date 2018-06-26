@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    
+    setTimeout(function(){
+        $('#paint').fadeIn(1000);
+    }, 2000);
+
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyBinw5cvb2cBZKTVwz_GljdBOZdkJnoIqw",
@@ -98,10 +103,10 @@ $(document).ready(function () {
                     console.log(data);
                     username=data.username;
                     console.log(username);
-                    document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!"+username+"</a>";
+                    document.getElementById("nav-user").innerHTML = "<a href='#' class='nav-link'><i class='far fa-user icon_img'></i>你好!"+username+"</a>";
                 });
             }else{
-                document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!"+user.displayName+"</a>";
+                document.getElementById("nav-user").innerHTML = "<a href='#' class='nav-link'><i class='far fa-user icon_img'></i>你好!"+user.displayName+"</a>";
             }
 
 
