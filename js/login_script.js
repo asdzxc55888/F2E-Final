@@ -10,8 +10,8 @@ $(document).ready(function () {
     };
     firebase.initializeApp(config);
 
-
     var dbRef = firebase.database().ref();
+    var isLogin = false;
     // REGISTER DOM ELEMENTS
     const $email = $('#email');
     const $password = $('#password');
@@ -27,7 +27,7 @@ $(document).ready(function () {
     if (user) {
         $btnSignIn.attr('disabled', 'disabled');
         $btnSignOut.removeAttr('disabled');
-        document.getElementById("nav-login").style.display="none";
+        document.getElementById("nav-login").style.display = "none";
         console.log('1');
     } else {
         $btnSignOut.attr('disabled', 'disabled');
@@ -35,10 +35,6 @@ $(document).ready(function () {
         console.log('2');
         console.log(user);
     }
-
-    $("form").submit(function(){
-        return false;
-    })
 
     // SignIn
     $btnSignIn.click(function (e) {
@@ -65,36 +61,35 @@ $(document).ready(function () {
     });
 
     // Listening Login User
-    firebase.auth().onAuthStateChanged(function (user) {
+    var AuthChanged = firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             console.log('SignIn ' + user.email);
             console.log('SignIn ' + user.displayName);
-            
-            document.getElementById("nav-SignUp").style.display='none';
+
+            document.getElementById("nav-SignUp").style.display = 'none';
             $('#nav-SignUp').removeClass('nav-item');
-            document.getElementById("nav-login").style.display='none';
+            document.getElementById("nav-login").style.display = 'none';
             $('#nav-login').removeClass('nav-item');
             var username = user.displayName;
 
-            if(username==undefined){
-               dbRef.child('users:'+user.uid).on('value', function (snapshot) {
+            if (username == undefined) {
+                dbRef.child('users:' + user.uid).on('value', function (snapshot) {
                     var data = snapshot.val();
                     console.log(data);
-                    username=data.username;
+                    username = data.username;
                     console.log(username);
-                    document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!"+username+"</a>";
+                    document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!" + username + "</a>";
                 });
-            }else{
-                document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!"+user.displayName+"</a>";
+            } else {
+                document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!" + user.displayName + "</a>";
             }
 
-            if(user.displayName)
-            {
+            if (user.displayName) {
                 $signInfo.html(user.displayName + " is login...");
-            }else
-            {
+            } else {
                 $signInfo.html(user.email + " is login...");
             }
+            isLogin = true;
         } else {
             console.log("not logged in");
         }
@@ -118,17 +113,17 @@ $(document).ready(function () {
         console.log('GoogleSingIn Function');
     });
 
-    firebase.auth().getRedirectResult().then(function(result) {
+    firebase.auth().getRedirectResult().then(function (result) {
         if (result.credential) {
-          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-          var token = result.credential.accessToken;
-          console.log(token);
-          // ...
+            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+            var token = result.credential.accessToken;
+            console.log(token);
+            // ...
         }
         // The signed-in user info.
         var user = result.user;
         console.log(user);
-      }).catch(function(error) {
+    }).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -141,7 +136,22 @@ $(document).ready(function () {
         console.log(email);
         console.log(credential);
         // ...
-      });
+    });
+
+    //設定傳送數值延遲
+    $('form').submit( function(event) {
+        var form = this;
+        console.log("submit");
+        setTimeout( function () { 
+            if(isLogin){
+                alert("登入成功");
+                form.submit();
+            }else{
+                console.log("登入失敗");
+            }
+        }, 2000);
+        return false;
+    }); 
 
 
 });

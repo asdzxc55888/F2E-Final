@@ -8,6 +8,10 @@ body
     margin-right: 16px;
 }
 
+#paint {
+	display: none;
+}
+
 .nav-item
 {
     margin-left: 60px;
