@@ -1,4 +1,7 @@
 $(document).ready(function () {
+
+    $('#paint').fadeIn(1000);
+
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyBinw5cvb2cBZKTVwz_GljdBOZdkJnoIqw",
@@ -66,8 +69,6 @@ $(document).ready(function () {
             console.log('SignIn ' + user.email);
             console.log('SignIn ' + user.displayName);
 
-            document.getElementById("nav-SignUp").style.display = 'none';
-            $('#nav-SignUp').removeClass('nav-item');
             document.getElementById("nav-login").style.display = 'none';
             $('#nav-login').removeClass('nav-item');
             var username = user.displayName;

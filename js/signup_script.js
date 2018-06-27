@@ -1,8 +1,6 @@
 $(document).ready(function () {
     
-    setTimeout(function(){
-        $('#paint').fadeIn(1000);
-    }, 2000);
+    $('#paint').fadeIn(1000);
 
     // Initialize Firebase
     var config = {
@@ -88,8 +86,6 @@ $(document).ready(function () {
             window.user = user;
             console.log('SignIn ' + user.email);
             console.log('SignIn ' + user.displayName);
-            document.getElementById("nav-SignUp").style.display='none';
-            $('#nav-SignUp').removeClass('nav-item');
             document.getElementById("nav-login").style.display='none';
             $('#nav-login').removeClass('nav-item');
             var username = user.displayName;

@@ -17,6 +17,11 @@
     color: #434343;
     background: #dfe7e9;
     font-family: 微軟正黑體, sans-serif;
+    background-image: url(http://i.imgur.com/For9XHT.jpg);
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-position: left bottom;
+    background-color: transparent;
 }
 .form-control {
     font-size: 16px;
@@ -127,3 +132,4 @@
 .social-btn .btn i {
     font-size: 20px;
 }
+

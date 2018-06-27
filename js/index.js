@@ -27,8 +27,6 @@ $(document).ready(function () {
         if (user) {
             console.log('SignIn ' + user.email);
             console.log('SignIn ' + user.displayName);
-            document.getElementById("nav-SignUp").style.display = 'none';
-            $('#nav-SignUp').removeClass('nav-item');
             document.getElementById("nav-login").style.display = 'none';
             $('#nav-login').removeClass('nav-item');
             var username = user.displayName;
@@ -39,18 +37,13 @@ $(document).ready(function () {
                     console.log(data);
                     username = data.username;
                     console.log(username);
-                    document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!" + username + "</a>";
+                    document.getElementById("nav-user").innerHTML = "<a class='nav-link' href='user.html'><i class='far fa-user icon_img'></i>你好!" + username + "</a>";
                 });
             } else {
                 document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!" + user.displayName + "</a>";
             }
             document.getElementById("nav-logout").innerHTML = "<a class='nav-link' href='#'>登出</a>";
 
-            if (user.displayName) {
-                $signInfo.html(user.displayName + " is login...");
-            } else {
-                $signInfo.html(user.email + " is login...");
-            }
         } else {
             console.log("not logged in");
         }
@@ -65,16 +58,5 @@ $(document).ready(function () {
         firebase.auth().signOut();
         console.log('LogOut');
         location.reload();
-        $message.html('');
-
-        document.getElementById("nav-user").style.display = 'none';
-        $('#nav-user').removeClass('nav-item');
-        document.getElementById("nav-logout").style.display = 'none';
-        $('#nav-logout').removeClass('nav-item');
-
-        document.getElementById("nav-SignUp").style.display = 'block';
-        $('#nav-SignUp').addClass('nav-item');
-        document.getElementById("nav-login").style.display = 'block';
-        $('#nav-login').addClass('nav-item');
     });
 });
