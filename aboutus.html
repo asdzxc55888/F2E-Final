@@ -1,0 +1,172 @@
+!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 scalable=0;">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>思汗牧場</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!-- ICON 連結 -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/landing-page.min.css">
+    </head>
+
+<body id="paint">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img class="logo" src="img/index/logo.png">思汗牧場</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" id="nav-logout"></li>
+                    <li class="nav-item" id="nav-user"></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">
+                            <i class="fas fa-shopping-cart icon_img"></i>購物車</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">
+                            <i class="fas fa-shopping-bag icon_img"></i>商品頁面</a>
+                    </li>
+                    <li class="nav-item" id="nav-login">
+                        <a class="nav-link" href="login.html" id="nav-login">
+                            <i class="fas fa-sign-in-alt icon_img"></i>會員登入</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="far fa-envelope icon_img"></i>聯絡我們</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="about">
+        <section>
+             <div class="container" id="about">
+                        <div class="align-items-center">
+                            <h1 class="text-center">關於我們</h1>
+                            <h1 class="text-center">About Us</h1>
+                        </div>
+                    </div>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 order-lg-2">
+                        <div class="p-5">
+                            <img class="img-fluid rounded-circle" src="img/27.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <h2 class="display-4">何韋辰</h2>
+                            <h2 class="display-4">Chen Wei He</h2>
+                            <br><h4>創辦人之一</h4><br>
+                            <p>原本想要開設思汗屠宰場，但由於其中一個創辦人極力反對才改成牧場。</p>
+                            <p>暑假決定當個恐龍大師。</p>
+                            <p>資工瑩擔任重要的警長一職。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <img class="img-fluid rounded-circle" src="img/22.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <h2 class="display-4">黃泀翰</h2>
+                            <h2 class="display-4">Si Han Huang</h2>
+                            <br><h4>創辦人之一</h4><br>
+                            <p>對思汗屠宰場極力反對的那位，可能是因為他吃素。</p>
+                            <p>目前80公斤，聽說暑假要減肥。</p>
+                            <p>擔任資工營帶領高中生的隊輔組。</p>
+                          
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 order-lg-2">
+                        <div class="p-5">
+                            <img class="img-fluid rounded-circle" src="img/05.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <h2 class="display-4">曾祥語</h2>
+                            <h2 class="display-4">Hsiang Yu Tseng</h2>
+                            <br><h4>創辦人之一</h4><br>
+                            <p>也想要開屠宰場的創辦人，但被極力反對了。</p>
+                            <p>聽說也有參加資工營，不過角色不太重要被遺忘。</p>
+                            <p>國文被當了一年，張伯宇是好老師。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="cooper">
+            <h1 class=" coopertext text-center">合作夥伴</h1>
+            <img class="text-center img-fluid cooperimg" src="img/LOGObig.png">
+            <img class="text-center img-fluid" src="img/title.png">
+            <img class="text-center img-fluid" src="img/home1.jpg">
+            <img class="text-center img-fluid" src="img/CSIE.png">
+            <img class="text-center img-fluid" src="img/img_ntut_logo.png">
+        </div>
+    </div>
+    <div>
+        <img class="img-fluid" src="img/index/footer.png" alt="">
+        <div class="footer">
+        <footer class="py-5 bg-black">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <p class="m-2 footerp">
+                            <img class="img-fluid" src="img/index/if_location-pin-map-place-position_3209306.png"> : 桃園市大溪區南興里12鄰廣福6-2號</p>
+                        <p class="m-2 footerp">
+                            <img class="img-fluid" src="img/index/if_phone1_172517.png"> : (03)-3802680</p>
+                    </div>
+                    <div class="col">
+                        <p class="m-2 footerp1">
+                            <img class="img-fluid" src="img/index/if_Clock_657914.png"> : 平日 0900-2100</p>
+                        <p class="m-2 footerp1">
+                            <img class="img-fluid" src="img/index/if_Clock_657914.png"> : 假日 0830-2130</p>
+                    </div>
+                </div>
+                <p class="m-2 text-center text-black small">Copyright &copy; Si Han Pasture</p>
+            </div>
+        </footer>
+        </div>
+    </div>
+</body>
+</html>
