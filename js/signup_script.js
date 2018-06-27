@@ -46,8 +46,8 @@ $(document).ready(function () {
 
     function writeUserData(userId, name, email) {
         dbRef.child('users:' + userId).set({
-            username: name,
             email: email,
+            username: name
         });
     }
 
@@ -69,7 +69,8 @@ $(document).ready(function () {
                 var user = firebase.auth().currentUser;
                 writeUserData(user.uid, username, email);
                 console.log("創建帳號成功");
-                isSignUp=true;
+                alert("註冊成功!");
+                document.location.href="index.html";
               }).catch(function (e) {
                 console.log(e.message);
                 $signInfo.html(e.message);
@@ -113,44 +114,8 @@ $(document).ready(function () {
         }
     });
 
-
-    firebase.auth().getRedirectResult().then(function (result) {
-        if (result.credential) {
-            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-            var token = result.credential.accessToken;
-            console.log(token);
-            // ...
-        }
-        // The signed-in user info.
-        var user = result.user;
-        console.log(user);
-    }).catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        console.log(errorCode);
-        console.log(errorMessage);
-        console.log(email);
-        console.log(credential);
-        // ...
-    });
-
     //設定傳送數值延遲
     $('form').submit( function(event) {
-        var form = this;
-        console.log("submit");
-        setTimeout( function () { 
-            if(isSignUp){
-                alert("註冊成功!");
-                form.submit();
-            }else{
-                console.log("資料有誤");
-            }
-        }, 2000);
         return false;
     }); 
 });

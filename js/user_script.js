@@ -19,20 +19,22 @@ $(document).ready(function () {
     const $birthday = $('#birthday');
     const $username = $('#username');
     const $name = $('#name');
-    const $adresse = $('#adresse');
+    const $address = $('#adresse');
     const $confirm = $('#confirm_btn');
+    const $logout = $('#nav-logout');
 
     console.log($phone);
 
     var isSubmit = false;
 
-    function writeUserData(userId, name, username, phone, adresse, birthday) {
+    function writeUserData() {
+        var user = firebase.auth().currentUser;
         dbRef.child('users:' + userId).set({
-            username: username,
-            name: name,
-            phone: phone,
-            adresse: adresse,
-            birthday: birthday
+            username: $username.val(),
+            name: $name.val(),
+            phone: $phone.val(),
+            address: $address.val(),
+            birthday: $birthday.val()
         });
         isSubmit=true;
     }
@@ -54,13 +56,13 @@ $(document).ready(function () {
                     $birthday.val(data.birthday);
                     $phone.val(data.phone);
                     $name.val(data.name);
-                    $adresse.val(data.adresse);
+                    $address.val(data.address);
 
                     username = data.username;
-                    document.getElementById("nav-user").innerHTML = "<a href='#' class='nav-link'><i class='far fa-user icon_img'></i>你好!" + username + "</a>";
+                    document.getElementById("nav-user").innerHTML = "<a href='#' class='nav-link' href='user.html'><i class='far fa-user icon_img'></i>你好!" + username + "</a>";
                 });
             } else {
-                document.getElementById("nav-user").innerHTML = "<a href='#' class='nav-link'><i class='far fa-user icon_img'></i>你好!" + user.displayName + "</a>";
+                document.getElementById("nav-user").innerHTML = "<a href='#' class='nav-link' href='user.html'><i class='far fa-user icon_img'></i>你好!" + user.displayName + "</a>";
             }
             document.getElementById("nav-logout").innerHTML = "<a class='nav-link' href='index.html'>登出</a>";
 
@@ -70,8 +72,7 @@ $(document).ready(function () {
     });
 
     $confirm.click(function (){
-        var user = firebase.auth().currentUser;
-        writeUserData(user.uid, $name.val(), $username.val(), $phone.val(), $adresse.val(), $birthday.val());
+        writeUserData();
     });
 
      //登出
