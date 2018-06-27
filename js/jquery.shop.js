@@ -27,6 +27,8 @@
 			this.$emptyCartBtn = this.$shoppingCartActions.find( "#empty-cart" ); // Empty cart button
 			this.$userDetails = this.$element.find( "#user-details-content" ); // Element that displays the user information
 			this.$paypalForm = this.$element.find( "#paypal-form" ); // PayPal form
+			this.$confirmSubmit = this.$element.find('#confirmSubmit');
+			this.$logout = this.$element.find('#nav-logout');
 			
 			
 			this.currency = "$"; // HTML entity of the currency to be displayed in the layout
@@ -310,6 +312,16 @@
 			var self = this;
 			if( self.$emptyCartBtn.length ) {
 				self.$emptyCartBtn.on( "click", function() {
+					self._emptyCart();
+				});
+			}
+			if( self.$confirmSubmit.length ) {
+				self.$confirmSubmit.on("click", function() {
+					self._emptyCart();
+				});
+			}
+			if( self.$logout.length ) {
+				self.$logout.on("click", function() {
 					self._emptyCart();
 				});
 			}
@@ -644,6 +656,9 @@
 		var shop = new $.Shop( "#site" );
 	});
 
+	
+
+
 })( jQuery );
 
 $(document).ready(function () {
@@ -723,13 +738,11 @@ $(document).ready(function () {
 
 	$confirmSubmit.click(function(){
 		writeInDataBase();
-		this.storage.clear();
 		document.location.href="index.html";
 	});
 	
 	$logout.click(function () {
         firebase.auth().signOut();
 		console.log('LogOut');
-		$.Shop.prototype._emptyCart();
     });
 })
