@@ -396,6 +396,8 @@
 					var totalShipping = shipping + shippingRates;
 					
 					self.storage.setItem( self.shippingRates, totalShipping );
+
+					return false;
 				});
 			});
 		},
