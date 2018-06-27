@@ -397,6 +397,8 @@
 					
 					self.storage.setItem( self.shippingRates, totalShipping );
 
+					alert("成功加入購物車");
+
 					return false;
 				});
 			});
@@ -533,7 +535,7 @@
 			var cartCopy = cartObject;
 			var items = cartCopy.items;
 			items.push( values );
-			
+			console.log(items);
 			this.storage.setItem( this.cartName, this._toJSONString( cartCopy ) );
 		},
 		
