@@ -20,12 +20,11 @@ $(document).ready(function () {
     const $username = $('#username');
     const $name = $('#name');
     const $adresse = $('#adresse');
-    const $confirmPassword = $('#confirmPassword');
+    const $confirm = $('#confirm_btn');
 
     console.log($phone);
 
-    var user = firebase.auth().currentUser;
-    var isSignUp = false;
+    var isSubmit = false;
 
     function writeUserData(userId, name, username, phone, adresse, birthday) {
         dbRef.child('users:' + userId).set({
@@ -35,6 +34,7 @@ $(document).ready(function () {
             adresse: adresse,
             birthday: birthday
         });
+        isSubmit=true;
     }
 
     // Listening Login User
@@ -50,10 +50,11 @@ $(document).ready(function () {
             if (username == undefined) {
                 dbRef.child('users:' + user.uid).on('value', function (snapshot) {
                     var data = snapshot.val();
-                    console.log(data);
                     $username.val(data.username);
-                    console.log($username.value);
-                    console.log($username);
+                    $birthday.val(data.birthday);
+                    $phone.val(data.phone);
+                    $name.val(data.name);
+                    $adresse.val(data.adresse);
 
                     username = data.username;
                     document.getElementById("nav-user").innerHTML = "<a href='#' class='nav-link'><i class='far fa-user icon_img'></i>你好!" + username + "</a>";
@@ -66,13 +67,18 @@ $(document).ready(function () {
         }
     });
 
+    $confirm.click(function (){
+        var user = firebase.auth().currentUser;
+        writeUserData(user.uid, $name.val(), $username.val(), $phone.val(), $adresse.val(), $birthday.val());
+    });
+
     //設定傳送數值延遲
     $('form').submit(function (event) {
         var form = this;
         console.log("submit");
         setTimeout(function () {
-            if (isSignUp) {
-                alert("註冊成功!");
+            if (isSubmit) {
+                alert("修改成功!");
                 form.submit();
             } else {
                 console.log("資料有誤");
