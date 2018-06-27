@@ -64,7 +64,7 @@ $(document).ready(function () {
     });
 
     // Listening Login User
-    var AuthChanged = firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             console.log('SignIn ' + user.email);
             console.log('SignIn ' + user.displayName);
@@ -91,6 +91,8 @@ $(document).ready(function () {
                 $signInfo.html(user.email + " is login...");
             }
             isLogin = true;
+
+            document.location.href="index.html";
         } else {
             console.log("not logged in");
         }
@@ -141,16 +143,6 @@ $(document).ready(function () {
 
     //設定傳送數值延遲
     $('form').submit( function(event) {
-        var form = this;
-        console.log("submit");
-        setTimeout( function () { 
-            if(isLogin){
-                alert("登入成功");
-                form.submit();
-            }else{
-                console.log("登入失敗");
-            }
-        }, 2000);
         return false;
     }); 
 

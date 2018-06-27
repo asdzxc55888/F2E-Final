@@ -62,6 +62,8 @@ $(document).ready(function () {
             } else {
                 document.getElementById("nav-user").innerHTML = "<a href='#' class='nav-link'><i class='far fa-user icon_img'></i>你好!" + user.displayName + "</a>";
             }
+            document.getElementById("nav-logout").innerHTML = "<a class='nav-link' href='index.html'>登出</a>";
+
         } else {
             console.log("not logged in");
         }
@@ -70,6 +72,12 @@ $(document).ready(function () {
     $confirm.click(function (){
         var user = firebase.auth().currentUser;
         writeUserData(user.uid, $name.val(), $username.val(), $phone.val(), $adresse.val(), $birthday.val());
+    });
+
+     //登出
+     $logout.click(function () {
+        firebase.auth().signOut();
+        console.log('LogOut');
     });
 
     //設定傳送數值延遲
