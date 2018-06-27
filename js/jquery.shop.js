@@ -542,18 +542,14 @@
 		
 		_calculateShipping: function( qty ) {
 			var shipping = 0;
-			if( qty >= 6 ) {
-				shipping = 10;
+			if( qty <= 6 ) {
+				shipping = 120;
 			}
-			if( qty >= 12 && qty <= 30 ) {
-				shipping = 20;	
-			}
-			
-			if( qty >= 30 && qty <= 60 ) {
-				shipping = 30;	
+			if( qty >= 6 && qty <= 10 ) {
+				shipping = 80;	
 			}
 			
-			if( qty > 60 ) {
+			if( qty > 10 ) {
 				shipping = 0;
 			}
 			
