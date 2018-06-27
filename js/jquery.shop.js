@@ -27,6 +27,9 @@
 			this.$emptyCartBtn = this.$shoppingCartActions.find( "#empty-cart" ); // Empty cart button
 			this.$userDetails = this.$element.find( "#user-details-content" ); // Element that displays the user information
 			this.$paypalForm = this.$element.find( "#paypal-form" ); // PayPal form
+			this.$confirmSubmit = this.$element.find('#confirmSubmit');
+			this.$logout = this.$element.find('#nav-logout');
+			this.$checkout = this.$element.find('#checkout');
 			
 			
 			this.currency = "$"; // HTML entity of the currency to be displayed in the layout
@@ -313,6 +316,16 @@
 					self._emptyCart();
 				});
 			}
+			if( self.$confirmSubmit.length ) {
+				self.$confirmSubmit.on("click", function() {
+					self._emptyCart();
+				});
+			}
+			if( self.$logout.length ) {
+				self.$logout.on("click", function() {
+					self._emptyCart();
+				});
+			}
 		},
 		
 		// Updates the cart
@@ -384,6 +397,10 @@
 					var totalShipping = shipping + shippingRates;
 					
 					self.storage.setItem( self.shippingRates, totalShipping );
+
+					alert("成功加入購物車");
+
+					return false;
 				});
 			});
 		},
@@ -519,7 +536,7 @@
 			var cartCopy = cartObject;
 			var items = cartCopy.items;
 			items.push( values );
-			
+			console.log(items);
 			this.storage.setItem( this.cartName, this._toJSONString( cartCopy ) );
 		},
 		
@@ -640,6 +657,9 @@
 		var shop = new $.Shop( "#site" );
 	});
 
+	
+
+
 })( jQuery );
 
 $(document).ready(function () {
@@ -719,13 +739,11 @@ $(document).ready(function () {
 
 	$confirmSubmit.click(function(){
 		writeInDataBase();
-		this.storage.clear();
 		document.location.href="index.html";
 	});
 	
 	$logout.click(function () {
         firebase.auth().signOut();
 		console.log('LogOut');
-		$.Shop.prototype._emptyCart();
     });
 })
