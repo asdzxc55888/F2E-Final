@@ -15,30 +15,7 @@ $(document).ready(function () {
 
     var dbRef = firebase.database().ref();
     // REGISTER DOM ELEMENTS
-    const $phone = $('#phone');
-    const $birthday = $('#birthday');
-    const $username = $('#username');
-    const $name = $('#name');
-    const $address = $('#adresse');
-    const $confirm = $('#confirm_btn');
     const $logout = $('#nav-logout');
-    const $ordered = $('#ordered');
-
-    console.log($phone);
-
-    var isSubmit = false;
-
-    function writeUserData() {
-        var user = firebase.auth().currentUser;
-        dbRef.child('users:' + user.uid).set({
-            username: $username.val(),
-            name: $name.val(),
-            phone: $phone.val(),
-            address: $address.val(),
-            birthday: $birthday.val()
-        });
-        isSubmit=true;
-    }
 
     // Listening Login User
     firebase.auth().onAuthStateChanged(function (user) {
@@ -53,22 +30,30 @@ $(document).ready(function () {
             if (username == undefined) {
                 dbRef.child('users:' + user.uid).on('value', function (snapshot) {
                     var data = snapshot.val();
-
+                    
                     username = data.username;
                     document.getElementById("nav-user").innerHTML = "<a href='#' class='nav-link' href='user.html'><i class='far fa-user icon_img'></i>你好!" + username + "</a>";
                 });
             } else {
                 document.getElementById("nav-user").innerHTML = "<a href='#' class='nav-link' href='user.html'><i class='far fa-user icon_img'></i>你好!" + user.displayName + "</a>";
             }
-            dbRef.child('users:' + user.uid).on('value', function (snapshot) {
-                var data = snapshot.val();
-                $username.val(data.username);
-                $birthday.val(data.birthday);
-                $phone.val(data.phone);
-                $name.val(data.name);
-                $address.val(data.address);
+            dbRef.child('order' + user.uid).on('value', function (snapshot) {
+                var orderData = snapshot.val();
+                var item1=orderData.item1
+                var item2=orderData.item2
+                var item3=orderData.item3
+                var item4=orderData.item4
+                var item5=orderData.item5
+                var item6=orderData.item6
+                var item7=orderData.item7
+                var item8=orderData.item8
+                var item_arr = [item1,item2,item3,item4,item5,item6,item7,item8];
+                var totalItem = orderData.totalItem;
 
-                username = data.username;
+                for(var i = 0 ; i < totalItem ; i++){
+                    document.getElementById('item-list').innerHTML+="<tr><td class='pname'>"+item_arr[i].itemName +"</td><td class='pqty'>"+item_arr[i].itemNum+"</td></tr>"
+                 }
+                 document.getElementById('stotal').innerHTML=orderData.totalPrice;
             });
             document.getElementById("nav-logout").innerHTML = "<a class='nav-link' href='index.html'>登出</a>";
 
@@ -77,33 +62,13 @@ $(document).ready(function () {
         }
     });
 
-    $confirm.click(function (){
-        writeUserData();
-    });
-
      //登出
      $logout.click(function () {
         firebase.auth().signOut();
         console.log('LogOut');
     });
 
-    $ordered.click(function (){
-        var user = firebase.auth().currentUser;
-    
-    });
-
-    //設定傳送數值延遲
-    $('form').submit(function (event) {
-        var form = this;
-        console.log("submit");
-        setTimeout(function () {
-            if (isSubmit) {
-                alert("修改成功!");
-                form.submit();
-            } else {
-                console.log("資料有誤");
-            }
-        }, 2000);
-        return false;
-    });
+    $(function(){
+        $('a[title]').tooltip();
+        });
 });

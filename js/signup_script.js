@@ -94,9 +94,7 @@ $(document).ready(function () {
             if(username==undefined){
                dbRef.child('users:'+user.uid).on('value', function (snapshot) {
                     var data = snapshot.val();
-                    console.log(data);
                     username=data.username;
-                    console.log(username);
                     document.getElementById("nav-user").innerHTML = "<a href='#' class='nav-link'><i class='far fa-user icon_img'></i>你好!"+username+"</a>";
                 });
             }else{

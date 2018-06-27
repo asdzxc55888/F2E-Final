@@ -29,7 +29,6 @@
 			this.$paypalForm = this.$element.find( "#paypal-form" ); // PayPal form
 			this.$confirmSubmit = this.$element.find('#confirmSubmit');
 			this.$logout = this.$element.find('#nav-logout');
-			this.$checkout = this.$element.find('#checkout');
 			
 			
 			this.currency = "$"; // HTML entity of the currency to be displayed in the layout
@@ -671,7 +670,7 @@ $(document).ready(function () {
 	const $address = $('#address');
 	const $logout = $('#nav-logout');
 	const $confirmSubmit = $('#confirmSubmit');
-
+ 	const $checkout = $('#checkout');
 	var item_list =document.getElementById('checkout-cart');
 
 	var config = {
@@ -688,10 +687,13 @@ $(document).ready(function () {
 
 	function writeInDataBase() {
 		var user = firebase.auth().currentUser;
-		var orderDbRef = dbRef.child('order'+user.uid+name);
+		var orderDbRef = dbRef.child('order'+user.uid);
 
 		var userDetail = document.getElementById('user-details').getElementsByTagName('li');
-		orderDbRef.set({totalPrice:document.getElementById('stotal').innerText});
+		orderDbRef.set({
+			totalPrice:document.getElementById('stotal').innerText,
+			totalItem:item_list.rows.length-1
+		});
 
 		orderDbRef.child('userDetail').set({
 			name:userDetail[0].innerHTML,
@@ -718,17 +720,18 @@ $(document).ready(function () {
             if (username == undefined) {
                 dbRef.child('users:' + user.uid).on('value', function (snapshot) {
                     var data = snapshot.val();
-                    console.log(data);
                     username = data.username;
-					console.log(username);
-					$name.val(data.name);
-					$email.val(user.email);
-					$address.val(data.address);
                     document.getElementById("nav-user").innerHTML = "<a class='nav-link' href='user.html'><i class='far fa-user icon_img'></i>你好!" + username + "</a>";
                 });
             } else {
                 document.getElementById("nav-user").innerHTML = "<a class='nav-link' href='user.html'><i class='far fa-user icon_img'></i>你好!" + user.displayName + "</a>";
 			}
+			dbRef.child('users:' + user.uid).on('value', function (snapshot) {
+				var data = snapshot.val();
+				$name.val(data.name);
+				$email.val(user.email);
+				$address.val(data.address);
+			});
 			document.getElementById("nav-logout").innerHTML = "<a class='nav-link' href='index.html'>登出</a>";
         } else {
             console.log("not logged in");
@@ -740,6 +743,16 @@ $(document).ready(function () {
 		document.location.href="index.html";
 	});
 	
+	$checkout.click(function(){
+		var user = firebase.auth().currentUser;
+		if(!user){
+			alert("請先登入");
+			document.location.href="login.html";
+		}else{
+			document.location.href="checkout.html";
+		}
+	})
+
 	$logout.click(function () {
         firebase.auth().signOut();
 		console.log('LogOut');
