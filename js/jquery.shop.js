@@ -393,7 +393,7 @@
 						qty: qty
 					});
 					var shipping = self._convertString( self.storage.getItem( self.shippingRates ) );
-					var shippingRates = self._calculateShipping( qty );
+				  var shippingRates = self._calculateShipping( qty );
 					var totalShipping = shipping + shippingRates;
 					
 					self.storage.setItem( self.shippingRates, totalShipping );
@@ -547,17 +547,15 @@
 		
 		_calculateShipping: function( qty ) {
 			var shipping = 0;
-			if( qty <= 6 ) {
-				shipping = 120;
+			if(qty < 6){
+				shipping = 200;
 			}
-			if( qty >= 6 && qty <= 10 ) {
-				shipping = 80;	
+			if( qty >= 6 && qty < 12) {
+				shipping = 100;
 			}
-			
-			if( qty > 10 ) {
-				shipping = 0;
+			if( qty >= 12 && qty <= 30 ) {
+				shipping = 0;	
 			}
-			
 			return shipping;
 		
 		},
