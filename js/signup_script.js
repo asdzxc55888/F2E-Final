@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    
+    $('#paint').fadeIn(1000);
+
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyBinw5cvb2cBZKTVwz_GljdBOZdkJnoIqw",
@@ -20,6 +23,7 @@ $(document).ready(function () {
     const $confirmPassword = $('#confirmPassword');
 
     var user = firebase.auth().currentUser;
+    var isSignUp = false;
 
     if(user){
         $navSignup.style.display="none";
@@ -39,10 +43,6 @@ $(document).ready(function () {
 
     password.onchange = validatePassword;
     confirmPassword.onkeyup = validatePassword;
-
-    $("form").submit(function () {
-        return false;
-    })
 
     function writeUserData(userId, name, email) {
         dbRef.child('users:' + userId).set({
@@ -69,7 +69,7 @@ $(document).ready(function () {
                 var user = firebase.auth().currentUser;
                 writeUserData(user.uid, username, email);
                 console.log("創建帳號成功");
-                alert("註冊成功!");
+                isSignUp=true;
               }).catch(function (e) {
                 console.log(e.message);
                 $signInfo.html(e.message);
@@ -86,8 +86,6 @@ $(document).ready(function () {
             window.user = user;
             console.log('SignIn ' + user.email);
             console.log('SignIn ' + user.displayName);
-            document.getElementById("nav-SignUp").style.display='none';
-            $('#nav-SignUp').removeClass('nav-item');
             document.getElementById("nav-login").style.display='none';
             $('#nav-login').removeClass('nav-item');
             var username = user.displayName;
@@ -98,10 +96,10 @@ $(document).ready(function () {
                     console.log(data);
                     username=data.username;
                     console.log(username);
-                    document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!"+username+"</a>";
+                    document.getElementById("nav-user").innerHTML = "<a href='#' class='nav-link'><i class='far fa-user icon_img'></i>你好!"+username+"</a>";
                 });
             }else{
-                document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!"+user.displayName+"</a>";
+                document.getElementById("nav-user").innerHTML = "<a href='#' class='nav-link'><i class='far fa-user icon_img'></i>你好!"+user.displayName+"</a>";
             }
 
 
@@ -141,5 +139,18 @@ $(document).ready(function () {
         // ...
     });
 
-
+    //設定傳送數值延遲
+    $('form').submit( function(event) {
+        var form = this;
+        console.log("submit");
+        setTimeout( function () { 
+            if(isSignUp){
+                alert("註冊成功!");
+                form.submit();
+            }else{
+                console.log("資料有誤");
+            }
+        }, 2000);
+        return false;
+    }); 
 });
