@@ -64,7 +64,7 @@ $(document).ready(function () {
     });
 
     // Listening Login User
-    var AuthChanged = firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             console.log('SignIn ' + user.email);
             console.log('SignIn ' + user.displayName);
@@ -79,10 +79,10 @@ $(document).ready(function () {
                     console.log(data);
                     username = data.username;
                     console.log(username);
-                    document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!" + username + "</a>";
+                    document.getElementById("nav-user").innerHTML = "<a class='nav-link href='user.html'><i class='far fa-user icon_img'></i>你好!" + username + "</a>";
                 });
             } else {
-                document.getElementById("nav-user").innerHTML = "<a class='nav-link'><i class='far fa-user icon_img'></i>你好!" + user.displayName + "</a>";
+                document.getElementById("nav-user").innerHTML = "<a class='nav-link href='user.html'><i class='far fa-user icon_img'></i>你好!" + user.displayName + "</a>";
             }
 
             if (user.displayName) {
@@ -91,6 +91,8 @@ $(document).ready(function () {
                 $signInfo.html(user.email + " is login...");
             }
             isLogin = true;
+
+            document.location.href="index.html";
         } else {
             console.log("not logged in");
         }
@@ -141,16 +143,6 @@ $(document).ready(function () {
 
     //設定傳送數值延遲
     $('form').submit( function(event) {
-        var form = this;
-        console.log("submit");
-        setTimeout( function () { 
-            if(isLogin){
-                alert("登入成功");
-                form.submit();
-            }else{
-                console.log("登入失敗");
-            }
-        }, 2000);
         return false;
     }); 
 

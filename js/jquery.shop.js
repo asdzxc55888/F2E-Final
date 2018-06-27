@@ -641,3 +641,91 @@
 	});
 
 })( jQuery );
+
+$(document).ready(function () {
+
+
+	setTimeout(function () {
+		$('#paint').fadeIn(1000);
+	}, 1500);
+	const $name = $('#name');
+	const $email = $('#email');
+	const $address = $('#address');
+	const $logout = $('#nav-logout');
+	const $confirmSubmit = $('#confirmSubmit');
+
+	var item_list =document.getElementById('checkout-cart');
+
+	var config = {
+        apiKey: "AIzaSyBinw5cvb2cBZKTVwz_GljdBOZdkJnoIqw",
+        authDomain: "f2e-final.firebaseapp.com",
+        databaseURL: "https://f2e-final.firebaseio.com",
+        projectId: "f2e-final",
+        storageBucket: "f2e-final.appspot.com",
+        messagingSenderId: "493398495425"
+    };
+	firebase.initializeApp(config);
+	
+	var dbRef = firebase.database().ref();
+
+	function writeInDataBase() {
+		var user = firebase.auth().currentUser;
+		var orderDbRef = dbRef.child('order'+user.uid+name);
+
+		var userDetail = document.getElementById('user-details').getElementsByTagName('li');
+		orderDbRef.set({totalPrice:document.getElementById('stotal').innerText});
+
+		orderDbRef.child('userDetail').set({
+			name:userDetail[0].innerHTML,
+			email:userDetail[1].innerHTML,
+			address:userDetail[2].innerHTML,
+			country:userDetail[3].innerHTML
+		});
+		for(var i=1;i<item_list.rows.length;i++){
+			orderDbRef.child("item"+i).set({
+				itemName:item_list.rows[i].cells[0].innerText,
+				itemNum:item_list.rows[i].cells[1].innerText
+			});
+		}
+	};
+	firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            console.log('SignIn ' + user.email);
+            console.log('SignIn ' + user.displayName);
+
+            document.getElementById("nav-login").style.display = 'none';
+            $('#nav-login').removeClass('nav-item');
+            var username = user.displayName;
+
+            if (username == undefined) {
+                dbRef.child('users:' + user.uid).on('value', function (snapshot) {
+                    var data = snapshot.val();
+                    console.log(data);
+                    username = data.username;
+					console.log(username);
+					$name.val(data.name);
+					$email.val(user.email);
+					$address.val(data.address);
+                    document.getElementById("nav-user").innerHTML = "<a class='nav-link' href='user.html'><i class='far fa-user icon_img'></i>你好!" + username + "</a>";
+                });
+            } else {
+                document.getElementById("nav-user").innerHTML = "<a class='nav-link' href='user.html'><i class='far fa-user icon_img'></i>你好!" + user.displayName + "</a>";
+			}
+			document.getElementById("nav-logout").innerHTML = "<a class='nav-link' href='index.html'>登出</a>";
+        } else {
+            console.log("not logged in");
+        }
+	});
+
+	$confirmSubmit.click(function(){
+		writeInDataBase();
+		this.storage.clear();
+		document.location.href="index.html";
+	});
+	
+	$logout.click(function () {
+        firebase.auth().signOut();
+		console.log('LogOut');
+		$.Shop.prototype._emptyCart();
+    });
+})
