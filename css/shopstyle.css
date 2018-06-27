@@ -84,9 +84,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .product-image {
 	margin: 0 auto 1em auto;
-	background: #000;
-	width: 150px;
-	height: 150px;
+	background: white;
+	width: 180px;
+	height: 250px;
 	overflow: hidden;
 	border-radius: 50%;
 	
@@ -94,7 +94,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .product-description {
 	padding: 1em;
-	background: #000;
+	background: rgb(0,110,46); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(0,110,46,1) 0%, rgba(0,110,46,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(0,110,46,1) 0%,rgba(0,110,46,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(0,110,46,1) 0%,rgba(0,110,46,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006e2e', endColorstr='#006e2e',GradientType=0 );
+	/* background: rgb(76, 177, 101); */
 	color: #fff;
 	border-radius: 5px;
 }
@@ -193,7 +198,7 @@ body#checkout-page #site-info {
 
 .shopping-cart tr:nth-child(even) {
 	background: #fafafa;
-},
+}
 
 .shopping-cart td.pdelete {
 	text-align: center;
