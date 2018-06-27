@@ -29,6 +29,7 @@
 			this.$paypalForm = this.$element.find( "#paypal-form" ); // PayPal form
 			this.$confirmSubmit = this.$element.find('#confirmSubmit');
 			this.$logout = this.$element.find('#nav-logout');
+			this.$checkout = this.$element.find('#checkout');
 			
 			
 			this.currency = "$"; // HTML entity of the currency to be displayed in the layout
