@@ -37,6 +37,7 @@ body {
     max-width:700px;
     width:100%;
     margin: 5% auto;
+    margin-top: 8vh;
     background-color: #FFFFFF;
     overflow: hidden;
   }
@@ -157,3 +158,19 @@ body {
   #sendmessage.show,.show  {
     display:block;
   }
+
+  @media only screen and (max-width: 480px) {
+    .leftcontact {
+      width:90%; 
+      float: none;
+      border-right:none;
+      box-sizing: border-box;
+      padding: 0px 15px 0px 0px;
+    }
+    .rightcontact {
+      width:90%;
+      float: none;
+      box-sizing: border-box;
+      padding: 0px 0px 0px 0px;
+    }
+}
