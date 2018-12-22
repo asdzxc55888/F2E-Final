@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="google-signin-client_id" content="493398495425-2ng1oqj2unv82lgbt99mj1sf6fi0qpo9.apps.googleusercontent.com">
+	<title>思汗牧場</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+	<!-- ICON 連結 -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+	 crossorigin="anonymous">
+
+	<!-- Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+
+	<script src="js/signup_script.js"></script>
+
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/login_style.css">
+	<link rel="stylesheet" href="css/signup_style.css">
+</head>
+
+<body id="paint">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="index.html">
+				<img class="logo" src="img/index/logo.png">思汗牧場</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+			 aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item" id="nav-user"></li>
+					<li class="nav-item">
+						<a class="nav-link" href="cart.html">
+							<i class="fas fa-shopping-cart icon_img"></i>購物車</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="shop.html">
+							<i class="fas fa-shopping-bag icon_img"></i>商品頁面</a>
+					</li>
+					<li class="nav-item" id="nav-login">
+						<a class="nav-link" href="login.html" id="nav-login">
+							<i class="fas fa-sign-in-alt icon_img"></i>會員登入</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="aboutus.html">
+							<i class="far fa-envelope icon_img"></i>關於我們</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="aboutfarm.html">
+                <i class="fas fa-info icon_img"></i></i>關於牧場設施</a>
+        </li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div>
+    <div class="about">
+		<div class="container">
+				<div class="align-items-center">
+					<h1 class="text-center">關於牧場設施</h1>
+					<h1 class="text-center">About Farm</h1>
+				</div>
+		</div>
+		<div class="imgsection" id="aboutfarm">
+			<div class="container">
+					<div class="row">
+						<div class="col-6">
+							<div class="polaroid">
+								<img src="img/腳踏車.jpg" alt="5 Terre" style="width:100%;">
+								<div class="container">
+									<h2>腳踏車</h2>
+									<h4>費用:50元 (半小時)</h4>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="polaroid">
+								<img src="img/碰碰船.jpg" alt="5 Terre" style="width:100%;height:361px;">
+								<div class="container">
+									<h2>碰碰船</h2>
+									<h4>費用:100元 (半小時)</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<div class="polaroid">
+								<img src="img/腳踏船.jpg" alt="5 Terre" style="width:100%">
+								<div class="container">
+									<h2>腳踏船</h2>
+									<h4>費用:100元 (半小時)</h4>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="polaroid">
+								<img src="img/擠牛奶.jpg" alt="5 Terre" style="width:100%">
+								<div class="container">
+									<h2>體驗擠牛奶</h2>
+									<h4>費用:100元 (10分鐘)</h4>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<div class="polaroid">
+								<img src="img/餵牛.jpg" alt="5 Terre" style="width:100%">
+								<div class="container">
+									<h2>體驗餵牛</h2>
+									<h4>費用:100元</h4>
+								</div>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="polaroid">
+								<img src="img/騎牛.jpg" alt="5 Terre" style="width:100%;height:328px;">
+								<div class="container">
+									<h2>體驗騎牛</h2>
+									<h4>費用:100元 (5分鐘)</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+  </div>
+  <div>
+    <img class="img-fluid" src="img/index/footer.png" alt="">
+    <div class="footer">
+    <footer class="py-5 bg-black">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="m-2 footerp">
+                        <img class="img-fluid" src="img/index/if_location-pin-map-place-position_3209306.png"> : 桃園市大溪區南興里12鄰廣福6-2號</p>
+                    <p class="m-2 footerp">
+                        <img class="img-fluid" src="img/index/if_phone1_172517.png"> : (03)-3802680</p>
+                </div>
+                <div class="col">
+                    <p class="m-2 footerp1">
+                        <img class="img-fluid" src="img/index/if_Clock_657914.png"> : 平日 0900-2100</p>
+                    <p class="m-2 footerp1">
+                        <img class="img-fluid" src="img/index/if_Clock_657914.png"> : 假日 0830-2130</p>
+                </div>
+            </div>
+            <p class="m-2 text-center text-black small">Copyright &copy; Si Han Pasture</p>
+        </div>
+    </footer>
+    </div>
+</div>
+</body>
+
+</html>

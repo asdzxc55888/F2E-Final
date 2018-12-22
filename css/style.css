@@ -98,6 +98,22 @@ header
 .cooperimg{
     padding-left: 5%;
 }
+.polaroid {
+    width: 90%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 25px;
+}
+.container {
+    text-align: center;
+    padding: 10px 20px;
+}
+.imgsection{
+    margin: 0px auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
 @media only screen and (max-width: 480px) {
     .footerp{
         text-align: center;
