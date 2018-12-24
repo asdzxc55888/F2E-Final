@@ -1,20 +1,17 @@
 {
-  "name": "database",
+  "name": "database_systems_project",
   "version": "1.0.0",
-  "description": "Database final project",
+  "description": "final_project",
   "main": "server.js",
-  "dependencies": {
-    "crypto": "^1.0.1",
-    "csr-gen": "^0.2.1",
-    "express": "^4.16.4",
-    "node-openssl-cert": "0.0.47",
-    "pem": "^1.13.2"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mysql": "^2.16.0"
+  }
 }

@@ -16,7 +16,7 @@
 			this.storage = sessionStorage; // shortcut to the sessionStorage object
 			
 			
-			this.$formAddToCart = this.$element.find( "form.add-to-cart" ); // Forms for adding items to the cart
+			//this.$formAddToCart = this.$element.find( "form.add-to-cart" ); // Forms for adding items to the cart
 			this.$formCart = this.$element.find( "#shopping-cart" ); // Shopping cart form
 			this.$checkoutCart = this.$element.find( "#checkout-cart" ); // Checkout form cart
 			this.$checkoutOrderForm = this.$element.find( "#checkout-order-form" ); // Checkout user details form
@@ -52,7 +52,7 @@
 			// Method invocation
 			
 			this.createCart();
-			this.handleAddToCartForm();
+			//this.handleAddToCartForm();
 			this.handleCheckoutOrderForm();
 			this.emptyCart();
 			this.updateCart();
@@ -331,7 +331,7 @@
 		
 		updateCart: function() {
 			var self = this;
-		  if( self.$updateCartBtn.length ) {
+		    if( self.$updateCartBtn.length ) {
 			self.$updateCartBtn.on( "click", function() {
 				var $rows = self.$formCart.find( "tbody tr" );
 				var cart = self.storage.getItem( self.cartName );
@@ -372,37 +372,46 @@
 		
 		// Adds items to the shopping cart
 		
-		handleAddToCartForm: function() {
+		/*handleAddToCartForm: function() {
 			var self = this;
 			self.$formAddToCart.each(function() {
 				var $form = $( this );
 				var $product = $form.parent();
 				var price = self._convertString( $product.data( "price" ) );
-				var name =  $product.data( "name" );
+				var name =  $product.data( "name" );				
 				
 				$form.on( "submit", function() {
-					var qty = self._convertString( $form.find( ".qty" ).val() );
-					var subTotal = qty * price;
-					var total = self._convertString( self.storage.getItem( self.total ) );
-					var sTotal = total + subTotal;
-					self.storage.setItem( self.total, sTotal );
-					self._addToCart({
-						product: name,
-						price: price,
-						qty: qty
-					});
-					var shipping = self._convertString( self.storage.getItem( self.shippingRates ) );
-				  var shippingRates = self._calculateShipping( qty );
-					var totalShipping = shipping + shippingRates;
-					
-					self.storage.setItem( self.shippingRates, totalShipping );
-
-					alert("成功加入購物車");
+					$.post('/subtractStorage',
+					{
+						name: $('#productName').text(),
+						quantity: $('#qty').val()
+					},
+					function(data, status) {
+						console.log('subtract Storage ' + data);
+						if(data=='success') {
+							var qty = self._convertString( $form.find( ".qty" ).val() );
+							var subTotal = qty * price;
+							var total = self._convertString( self.storage.getItem( self.total ) );
+							var sTotal = total + subTotal;
+							self.storage.setItem( self.total, sTotal );
+							self._addToCart({
+								product: name,
+								price: price,
+								qty: qty
+							});
+							var shipping = self._convertString( self.storage.getItem( self.shippingRates ) );
+							var shippingRates = self._calculateShipping( qty );
+							var totalShipping = shipping + shippingRates;
+							self.storage.setItem( self.shippingRates, totalShipping );
+							alert("成功加入購物車");
+						}
+						else alert("不好意思，已經沒有存貨了");
+					});							
 
 					return false;
 				});
 			});
-		},
+		},*/
 		
 		// Handles the checkout form by adding a validation routine and saving user's info into the session storage
 		
@@ -751,7 +760,7 @@ $(document).ready(function () {
 		}else{
 			document.location.href="checkout.html";
 		}
-	})
+	});
 
 	$logout.click(function () {
         firebase.auth().signOut();
