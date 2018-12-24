@@ -82,13 +82,14 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0 auto 1em auto;
 	background: white;
 	width: 180px;
-	height: 250px;
+	height:250px;
 	overflow: hidden;
 	border-radius: 50%;
 	
 }
 
 .product-description {
+	width:100%;
 	padding: 1em;
 	background: rgb(0,110,46); /* Old browsers */
 background: -moz-linear-gradient(top, rgba(0,110,46,1) 0%, rgba(0,110,46,1) 100%); /* FF3.6-15 */

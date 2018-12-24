@@ -76,8 +76,12 @@
 				<b></b>
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control input-lg" name="username" maxlength="10" placeholder="輸入您的暱稱" required="required"
+				<input type="text" class="form-control input-lg" name="username" maxlength="10" placeholder="輸入您的姓名" required="required"
 				 id="username">
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control input-lg" name="usernickname" maxlength="10" placeholder="輸入您的暱稱" required="required"
+				 id="usernickname">
 			</div>
 			<div class="form-group">
 				<input type="text" class="form-control input-lg" name="email" placeholder="電子信箱" required="required" id="email">
@@ -95,8 +99,11 @@
 				<input type="text" class="form-control input-lg" name="phone" placeholder="手機/電話" required="required" id="phone">
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control input-lg" name="birthday" placeholder="生日" required="required" id="birthday">
-			</div>
+				<p>生日
+						<span></span>
+				</p>
+				<input type="date" name="bday" id="birthday" max="2018-6-30" required="required" min="1900-01-01" class="form-control">
+		</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-success btn-lg btn-block" id="btnSignUp">註冊</button>
 			</div>
