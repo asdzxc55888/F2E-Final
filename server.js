@@ -79,6 +79,11 @@ app.get('/userOrderInformation.html',function(req,res){
 	res.sendFile(path.join(__dirname + '/userOrderInformation.html'));
 });
 
+app.get('/aboutfarm.html',function(req,res){
+    console.log('use about farm page');
+	res.sendFile(path.join(__dirname + '/aboutfarm.html'));
+});
+
 app.post('/changeProductCategory', function(req, res, next) {
 	if(req.body.category=='全部') {
 		con.query('SELECT * FROM Product, Product_Category WHERE ID=Product_ID', function (err, result) {
@@ -109,6 +114,14 @@ app.post('/addOrder', function(req, res) {
 			});
 		}
     });
+});
+
+app.post('/getFarmInformation', function(req, res) {
+	con.query('SELECT * FROM Farm_Information', function(err, result) {
+		if(err) throw err;
+		console.log('update farm information');
+		res.send(result);
+	});
 });
 
 const serverOption = {

@@ -61,6 +61,10 @@
 						<a class="nav-link" href="aboutus.html">
 							<i class="far fa-envelope icon_img"></i>關於我們</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="aboutfarm.html">
+							<i class="fas fa-info icon_img"></i></i>關於牧場設施</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -68,156 +72,21 @@
 	<div id="site">
 		<header class="container" id="masthead">
 			<h1>商品總覽
+				<select id="category" style="font-size:16px; float:right; margin-top:7%;">
+					<option>全部</option>
+					<option>乳品</option>
+					<option>餅乾</option>
+					<option>糖果</option>
+					<option>其他</option>
+				</select>
 				<span class="tagline">
 			</h1>
-			<select id="category">
-				<option>全部</option>
-				<option>乳品</option>
-				<option>餅乾</option>
-				<option>糖果</option>
-				<option>其他</option>
-			</select>
 		</header>
 		<div class="container" id="content">
 			<div class="row" id="products">
-				<ul id="productsList">
-					<!--<li class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<div class="product-image">
-							<img src="img/candy1.jpg" alt="" />
-						</div>
-						<div class="product-description" data-name="杏仁果牛奶糖" data-price="180">
-							<h3 id="productName" class="product-name">杏仁果牛奶糖</h3>
-							<p class="product-price">$ 180</p>
-							<form id="orderData" class="add-to-cart" action="#" method="POST">
-								<div>
-									<label for="qty">數量</label>
-									<input type="text" name="qty" id="qty" class="qty" value="1" />
-								</div>
-								<p>
-									<input type="submit" value="加入購物車" class="btn" />
-								</p>
-							</form>
-						</div>
-					</li>
-
-					<li class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<div class="product-image">
-							<img src="img/candy2.jpg" alt="" />
-						</div>
-						<div class="product-description" data-name="特濃牛奶糖" data-price="180">
-							<h3 class="product-name">特濃牛奶糖</h3>
-							<p class="product-price">$ 180</p>
-							<form class="add-to-cart" action="cart.html" method="GET">
-								<div>
-									<label for="qty">數量</label>
-									<input type="text" name="qty" id="qty" class="qty" value="1" />
-								</div>
-								<p>
-									<input id="addButton" type="submit" value="加入購物車" class="btn" />
-								</p>
-							</form>
-						</div>
-					</li>
-
-					<li class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<div class="product-image">
-							<img src="img/ramen.jpg" alt="" />
-						</div>
-						<div class="product-description" data-name="牧場拉麵" data-price="50">
-							<h3 class="product-name">牧場拉麵</h3>
-							<p class="product-price">$ 50</p>
-							<form class="add-to-cart" action="cart.html" method="GET">
-								<div>
-									<label for="qty">數量</label>
-									<input type="text" name="qty" id="qty" class="qty" value="1" />
-								</div>
-								<p>
-									<input type="submit" value="加入購物車" class="btn" />
-								</p>
-							</form>
-						</div>
-					</li>
-					<li class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<div class="product-image" style="width:250px;">
-							<img src="img/milk.jpg" alt="" />
-						</div>
-						<div class="product-description" data-name="牧場鮮乳( 936ml )" data-price="95">
-							<h3 class="product-name">牧場鮮乳( 936ml )</h3>
-							<p class="product-price">$ 95</p>
-							<form class="add-to-cart" action="cart.html" method="GET">
-								<div>
-									<label for="qty">數量</label>
-									<input type="text" name="qty" id="qty" class="qty" value="1" />
-								</div>
-								<p>
-									<input type="submit" value="加入購物車" class="btn" />
-								</p>
-							</form>
-						</div>
-					</li>
-
-					<li class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<div class="product-image">
-							<img src="img/cookie1.jpg" alt="" />
-						</div>
-						<div class="product-description" data-name="鮮乳手做餅(芝麻)" data-price="200">
-							<h3 class="product-name">鮮乳手做餅(芝麻)</h3>
-							<p class="product-price">$ 200</p>
-							<form class="add-to-cart" action="cart.html" method="GET">
-								<div>
-									<label for="qty">數量</label>
-									<input type="text" name="qty" id="qty" class="qty" value="1" />
-								</div>
-								<p>
-									<input type="submit" value="加入購物車" class="btn" />
-								</p>
-							</form>
-						</div>
-					</li>
-
-					<li class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<div class="product-image" style="width:150px;">
-							<img src="img/cookie2.jpg" alt="" />
-						</div>
-						<div class="product-description" data-name="鮮乳手做餅(乳酪)" data-price="200">
-							<h3 class="product-name">鮮乳手做餅(乳酪)</h3>
-							<p class="product-price">$ 200</p>
-							<form class="add-to-cart" action="cart.html" method="GET">
-								<div>
-									<label for="qty">數量</label>
-									<input type="text" name="qty" id="qty" class="qty" value="1" />
-								</div>
-								<p>
-									<input type="submit" value="加入購物車" class="btn" />
-								</p>
-							</form>
-						</div>
-					</li>
-
-					<li class="col-12 col-sm-12 col-md-6 col-lg-4">
-						<div class="product-image">
-							<img src="img/cookie3.jpg" alt="" />
-						</div>
-						<div class="product-description" data-name="鮮乳手做餅(原味)" data-price="200">
-							<h3 class="product-name">鮮乳手做餅(原味)</h3>
-							<p class="product-price">$ 200</p>
-							<form class="add-to-cart" action="cart.html" method="GET">
-								<div>
-									<label for="qty">數量</label>
-									<input type="text" name="qty" id="qty" class="qty" value="1" />
-								</div>
-								<p>
-									<input type="submit" value="加入購物車" class="btn" />
-								</p>
-							</form>
-						</div>
-					</li>-->
-				</ul>
+				<!--動態生成-->
 			</div>
 		</div>
-
-
-
 	</div>
 	<div>
 		<img class="img-fluid" src="img/index/footer.png" alt="">
