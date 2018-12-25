@@ -16,13 +16,15 @@ $(document).ready(function() {
 	});
 });
 
-$(document).on('click',"#addButton",function(event) {
+$(document).on('click', '#addButton', function(event) {
+	var productID = $(this).attr('name');
+	var data = $('#order' + productID + 'Data').serializeArray();
     event.preventDefault();
 	$.post('/addOrder',
 	{
-		name: $('#productName').text(),
-		quantity: $('#qty').val(),
-		price: $('#productPrice').text()
+		name: data[0].value,
+		price: data[1].value,
+		quantity: data[2].value
 	},
 	function(data, status) {
 		if(data=='success') alert("成功加入購物車");
@@ -44,7 +46,7 @@ function UpdateProductInformation(data, status){
 			buttonText = '加入購物車';
 			buttonEnabled = '';
 		}
-		productInformation += '<li class="col-12 col-sm-12 col-md-6 col-lg-4"><div class="product-image"><img src="' + data[i].imagePath + '"/></div><div class="product-description"><h3 id="productName" class="product-name">' + data[i].name + '</h3><p id="productPrice" class="product-price" value=' + data[i].price + '>$ ' + data[i].price + '</p><form id="orderData" action="#" method="POST" class="add-to-cart"><div><label for="qty">數量</label><input type="text" name="qty" id="qty" class="qty" value="1"/></div><p><input id="addButton" type="submit" value="' + buttonText + '" class="btn" ' + buttonEnabled + '/></p></form></div></li>';
+		productInformation += '<li class="col-12 col-sm-12 col-md-6 col-lg-4"><div class="product-image"><img src="' + data[i].imagePath + '"/></div><div class="product-description"><h3 class="product-name">' + data[i].name + '</h3><p class="product-price">$ ' + data[i].price + '</p><form id="order' + data[i].ID + 'Data" action="#" method="POST" class="add-to-cart"><input type="hidden" name="name" value="' + data[i].name + '"/><input type="hidden" name="price" value="' + data[i].price + '"/><div><label for="qty">數量</label><input type="text" name="qty" class="qty" value="1"/></div><p><input name="' + data[i].ID + '" id="addButton" type="submit" value="' + buttonText + '" class="btn" ' + buttonEnabled + '/></p></form></div></li>';
 	}
 	productInformation += '</ul>'
 	$('#products').html(productInformation);

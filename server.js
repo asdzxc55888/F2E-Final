@@ -102,7 +102,7 @@ app.post('/changeProductCategory', function(req, res, next) {
 app.post('/addOrder', function(req, res) {
 	var name = req.body.name;
 	var quantity = req.body.quantity;
-	var price = req.body.price.substring(2, req.body.price.length);
+	var price = req.body.price;
 	con.query('SELECT storage FROM Product WHERE name="' + name + '"', function (err, result) {
 		if (err) throw err;
 		if (result[0].storage < 1) res.send('error');
