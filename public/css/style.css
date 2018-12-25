@@ -88,6 +88,7 @@ header
 }
 .about{
     padding-top: 10%;
+    background: white;
 }
 .cooper{
     border-top: 2px solid grey;
@@ -115,6 +116,7 @@ header
     justify-content:center;
 }
 .editbody{
+    background: white;
     padding-top: 10%;
     display: flex;
     justify-content: center;
