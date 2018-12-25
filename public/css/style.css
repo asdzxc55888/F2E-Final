@@ -114,6 +114,22 @@ header
     align-items:center;
     justify-content:center;
 }
+.editbody{
+    padding-top: 10%;
+    display: flex;
+    justify-content: center;
+}
+.formbody{
+    padding-bottom: 8%;
+}
+input {
+    padding:5px 15px; 
+    background:#ccc; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+}
 @media only screen and (max-width: 480px) {
     .footerp{
         text-align: center;
