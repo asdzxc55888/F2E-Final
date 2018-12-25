@@ -1,7 +1,7 @@
 $(document).ready(function () {
     setTimeout(function () {
-        $('#paint').fadeIn(1000);
-    }, 2000);
+        $('#paint').fadeIn(0);
+    }, 0);
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyBinw5cvb2cBZKTVwz_GljdBOZdkJnoIqw",
