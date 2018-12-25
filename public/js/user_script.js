@@ -2,18 +2,7 @@ $(document).ready(function () {
     setTimeout(function () {
         $('#paint').fadeIn(1000);
     }, 2000);
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyBinw5cvb2cBZKTVwz_GljdBOZdkJnoIqw",
-        authDomain: "f2e-final.firebaseapp.com",
-        databaseURL: "https://f2e-final.firebaseio.com",
-        projectId: "f2e-final",
-        storageBucket: "f2e-final.appspot.com",
-        messagingSenderId: "493398495425"
-    };
-    firebase.initializeApp(config);
 
-    var dbRef = firebase.database().ref();
     // REGISTER DOM ELEMENTS
     const $phone = $('#phone');
     const $birthday = $('#birthday');
@@ -22,75 +11,90 @@ $(document).ready(function () {
     const $address = $('#adresse');
     const $confirm = $('#confirm_btn');
     const $logout = $('#nav-logout');
-    const $ordered = $('#ordered');
 
-    console.log($phone);
-
-    var isSubmit = false;
-
-    function writeUserData() {
-        var user = firebase.auth().currentUser;
-        dbRef.child('users:' + user.uid).set({
-            username: $username.val(),
-            name: $name.val(),
-            phone: $phone.val(),
-            address: $address.val(),
-            birthday: $birthday.val()
-        });
-        isSubmit=true;
+    //---一次性偵測使用者Cookie---
+    var user = null;
+    var name = "currentUser=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i].trim();
+        if (c.indexOf(name) == 0) { user = c.substring(name.length,c.length); }
     }
-
-    // Listening Login User
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            window.user = user;
-            console.log('SignIn ' + user.email);
-            console.log('SignIn ' + user.displayName);
-            document.getElementById("nav-login").style.display = 'none';
-            $('#nav-login').removeClass('nav-item');
-            var username = user.displayName;
-
-            if (username == undefined) {
-                dbRef.child('users:' + user.uid).on('value', function (snapshot) {
-                    var data = snapshot.val();
-
-                    username = data.username;
-                    document.getElementById("nav-user").innerHTML = "<a href='#' class='nav-link' href='user.html'><i class='far fa-user icon_img'></i>你好!" + username + "</a>";
-                });
-            } else {
-                document.getElementById("nav-user").innerHTML = "<a href='#' class='nav-link' href='user.html'><i class='far fa-user icon_img'></i>你好!" + user.displayName + "</a>";
-            }
-            dbRef.child('users:' + user.uid).on('value', function (snapshot) {
-                var data = snapshot.val();
-                $username.val(data.username);
-                $birthday.val(data.birthday);
-                $phone.val(data.phone);
-                $name.val(data.name);
-                $address.val(data.address);
-
-                username = data.username;
-            });
-            document.getElementById("nav-logout").innerHTML = "<a class='nav-link' href='index.html'>登出</a>";
-
-        } else {
-            console.log("not logged in");
-        }
-    });
+    if (user) {
+        console.log('SignIn ' + user);
+        document.getElementById("nav-login").style.display = 'none';
+        $('#nav-login').removeClass('nav-item');
+        document.getElementById("nav-user").innerHTML = "<a class='nav-link' href='user.html'><i class='far fa-user icon_img'></i>你好!" + user + "</a>";
+        document.getElementById("nav-logout").innerHTML = "<a class='nav-link' href='#'>登出</a>";
+        $.post("/user.html", {
+            User: user
+        },
+        function(data,status){
+            var Bday = data.Birthday.split('T');
+            console.log('Birthday:'+Bday[0]);
+            $username.val(user);
+            $birthday.val(Bday[0]);
+            $phone.val(data.Phone);
+            $name.val(data.Name);
+            $address.val(data.Address);
+        })
+    } else {
+        console.log("not logged in");
+    }
+    //---------------------------
 
     $confirm.click(function (){
-        writeUserData();
+        var userID = getCurrentUserID();
+        const phone = $phone.val();
+        const birthday = $birthday.val();
+        const username = $username.val();
+        const name = $name.val();
+        const address = $address.val();
+        console.log("修改")
+        $.post("/user.html", {
+            UserID: userID,
+            Phone: phone,
+            Birthday: birthday,
+            Username: username,
+            Name: name,
+            Address: address
+        },
+        function(data,status){
+            if(data=='success'){
+                setCookie(username,'currentUser');
+                console.log("資料修改成功");
+                alert("修改成功!");
+            }
+            document.location.reload(true);
+        })
     });
+    getCurrentUserID = function(){
+        var user = null;
+        var name = "UID=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(name) == 0) { user = c.substring(name.length,c.length); }
+        }
+        return user;
+    }  
+    setCookie = function(cvalue,cname){
+        var d = new Date();
+        d.setTime(d.getTime() + (24*60*60*1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
 
-     //登出
+    //登出
      $logout.click(function () {
-        firebase.auth().signOut();
+        logout();
         console.log('LogOut');
+        document.location.href="index.html";
     });
-
-    $ordered.click(function (){
-        var user = firebase.auth().currentUser;
-    
-    });
+    logout = function(){
+        document.cookie = "currentUser=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        document.cookie = "ID=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
 
     //設定傳送數值延遲
     $('form').submit(function (event) {

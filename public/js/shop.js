@@ -1,38 +1,43 @@
-$(document).ready(function() {
-	$(function() {
+$(document).ready(function () {
+	$(function () {
 		$.post('/changeProductCategory',
-		{
-			category: '全部'
-        },
-		UpdateProductInformation);
+			{
+				category: '全部'
+			},
+			UpdateProductInformation);
 	});
-	
-	$('#category').on('change', function(){
+
+	$('#category').on('change', function () {
 		$.post('/changeProductCategory',
-		{
-			category: $('#category').val()
-        },
-		UpdateProductInformation);
+			{
+				category: $('#category').val()
+			},
+			UpdateProductInformation);
 	});
 });
 
-$(document).on('click', '#addButton', function(event) {
+$(document).on('click', "#addButton", function (event) {
 	var productID = $(this).attr('name');
 	var data = $('#order' + productID + 'Data').serializeArray();
-    event.preventDefault();
-	$.post('/addOrder',
-	{
-		name: data[0].value,
-		price: data[1].value,
-		quantity: data[2].value
-	},
-	function(data, status) {
-		if(data=='success') alert("成功加入購物車");
-		else alert("不好意思，已經沒有存貨了");
-	});
+	event.preventDefault();
+	if (readCookie('UID') != null) {
+		$.post('/addOrder',
+			{
+				name: data[0].value,
+				price: data[1].value,
+				quantity: data[2].value,
+				UID: readCookie('UID')
+			},
+			function (data, status) {
+				if (data == 'success') alert("成功加入購物車");
+				else alert("不好意思，已經沒有存貨了");
+			});
+	} else {
+		alert("請先登入")
+	}
 });
 
-function UpdateProductInformation(data, status){
+function UpdateProductInformation(data, status) {
 	var productInformation = '<ul>';
 	var buttonText = '';
 	var buttonDisabled = '';
@@ -50,4 +55,18 @@ function UpdateProductInformation(data, status){
 	}
 	productInformation += '</ul>'
 	$('#products').html(productInformation);
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+		if (c.indexOf(nameEQ) == 0) {
+			console.log(c.substring(nameEQ.length, c.length));
+			return c.substring(nameEQ.length, c.length);
+		}
+	}
+	return null;
 }

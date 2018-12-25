@@ -2,18 +2,6 @@ $(document).ready(function () {
 
     $('#paint').fadeIn(1000);
 
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyBinw5cvb2cBZKTVwz_GljdBOZdkJnoIqw",
-        authDomain: "f2e-final.firebaseapp.com",
-        databaseURL: "https://f2e-final.firebaseio.com",
-        projectId: "f2e-final",
-        storageBucket: "f2e-final.appspot.com",
-        messagingSenderId: "493398495425"
-    };
-    firebase.initializeApp(config);
-
-    var dbRef = firebase.database().ref();
     var isLogin = false;
     // REGISTER DOM ELEMENTS
     const $email = $('#email');
@@ -21,125 +9,44 @@ $(document).ready(function () {
     const $btnSignIn = $('#btnSignIn');
     const $btnSignOut = $('#btnSignOut');
     const $signInfo = $('#sign-info');
-    const $btnGoogleSingIn = $('#btnGoogleSingIn');
-    const $btnFBSingIn = $('#btnFBSingIn');
-    const $btnTwitterSingIn = $('#btnTwitterSingIn');
-
-
-    var user = firebase.auth().currentUser;
-    if (user) {
-        $btnSignIn.attr('disabled', 'disabled');
-        $btnSignOut.removeAttr('disabled');
-        document.getElementById("nav-login").style.display = "none";
-        console.log('1');
-    } else {
-        $btnSignOut.attr('disabled', 'disabled');
-        $btnSignIn.removeAttr('disabled');
-        console.log('2');
-        console.log(user);
-    }
 
     // SignIn
     $btnSignIn.click(function (e) {
         const email = $email.val();
         const pass = $password.val();
-        const auth = firebase.auth();
         // signIn
         console.log(email);
         console.log(pass);
         console.log('sing in function');
-        const promise = auth.signInWithEmailAndPassword(email, pass);
-
-        promise.catch(function (e) {
-            console.log(e.message);
-            $signInfo.html(e.message);
-        });
+        $.post("/login.html", {
+            Email: email,
+            Pass: pass
+        },
+        function(data,status){
+            var CurrentUser=data.CurrentUser;
+            var ID=data.UID;
+            setCookie(CurrentUser,'currentUser');
+            setCookie(ID,'UID');
+            console.log("登入成功");
+            alert("成功!");
+            document.location.href="index.html";
+        })
     });
 
     $btnSignOut.click(function () {
-        firebase.auth().signOut();
+        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        document.cookie = "UID=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
         console.log('LogOut');
         $signInfo.html('No one login...');
         $message.html('');
     });
 
-    // Listening Login User
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            console.log('SignIn ' + user.email);
-            console.log('SignIn ' + user.displayName);
-
-            document.getElementById("nav-login").style.display = 'none';
-            $('#nav-login').removeClass('nav-item');
-            var username = user.displayName;
-
-            if (username == undefined) {
-                dbRef.child('users:' + user.uid).on('value', function (snapshot) {
-                    var data = snapshot.val();
-                    console.log(data);
-                    username = data.username;
-                    console.log(username);
-                    document.getElementById("nav-user").innerHTML = "<a class='nav-link href='user.html'><i class='far fa-user icon_img'></i>你好!" + username + "</a>";
-                });
-            } else {
-                document.getElementById("nav-user").innerHTML = "<a class='nav-link href='user.html'><i class='far fa-user icon_img'></i>你好!" + user.displayName + "</a>";
-            }
-
-            if (user.displayName) {
-                $signInfo.html(user.displayName + " is login...");
-            } else {
-                $signInfo.html(user.email + " is login...");
-            }
-            isLogin = true;
-
-            document.location.href="index.html";
-        } else {
-            console.log("not logged in");
-        }
-    });
-
-    $btnFBSingIn.click(function () {
-        var FBprovider = new firebase.auth.FacebookAuthProvider();
-        firebase.auth().signInWithRedirect(FBprovider);
-        console.log('FBSingIn Function');
-    });
-
-    $btnTwitterSingIn.click(function () {
-        var Twprovider = new firebase.auth.TwitterAuthProvider();
-        firebase.auth().signInWithRedirect(Twprovider);
-        console.log('TwitterSingIn Function');
-    });
-
-    $btnGoogleSingIn.click(function () {
-        var provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithRedirect(provider);
-        console.log('GoogleSingIn Function');
-    });
-
-    firebase.auth().getRedirectResult().then(function (result) {
-        if (result.credential) {
-            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-            var token = result.credential.accessToken;
-            console.log(token);
-            // ...
-        }
-        // The signed-in user info.
-        var user = result.user;
-        console.log(user);
-    }).catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        console.log(errorCode);
-        console.log(errorMessage);
-        console.log(email);
-        console.log(credential);
-        // ...
-    });
+    setCookie = function(cvalue,cname){
+        var d = new Date();
+        d.setTime(d.getTime() + (24*60*60*1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
 
     //設定傳送數值延遲
     $('form').submit( function(event) {
