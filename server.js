@@ -78,6 +78,11 @@ app.get('/userOrderInformation', function (req, res) {
   console.log("send file ");
 });
 
+app.get('/amdOrderList', function (req, res) {
+  fs.createReadStream("./public/amdOrderList.html").pipe(res);
+  console.log("send file ");
+});
+
 app.post('/signUp.html', function (req, res) {
   SignUp(req.body.Email, req.body.Pass, req.body.Username, req.body.Phone, req.body.Address, req.body.Birthday, req.body.Name, function (err, data) {
     res.send(data);
@@ -312,6 +317,26 @@ app.post('/getOrderList',function(req,res){
 app.post('/readorder',function(req,res){
   var order_ID = req.body.order_ID;
   orderquery.readOrderProduct(order_ID,function(result){
+    res.send(result);
+  })
+})
+
+app.post('/setDelivery',function(req,res){
+  var UID =req.body.UID;
+  var order_ID = req.body.order_ID;
+  var State = req.body.State;
+  orderquery.setDelivery(UID,order_ID,State);
+})
+
+app.post('/getDeliveryState',function(req,res){
+  var order_ID = req.body.order_ID;
+  orderquery.getDeliveryState(order_ID,function(result){
+    res.send(result);
+  })
+})
+
+app.post('/getDeliveryState',function(req,res){
+  orderquery.getAllDeliveryState(function(result){
     res.send(result);
   })
 })

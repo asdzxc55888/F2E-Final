@@ -26,6 +26,14 @@ $(document).ready(function () {
             });
             $("#stotal").html(totalPrices);
         })
+
+        $.post("/getDeliveryState",{
+            order_ID : order_ID
+        }, function (data, state) {
+            console.log(data[0].State);
+            var deliveryHTML = data[0].State;
+            $("#delivery").html(deliveryHTML);
+        })
     }
 
 })

@@ -93,7 +93,7 @@ $(document).ready(function () {
     });
     logout = function(){
         document.cookie = "currentUser=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-        document.cookie = "ID=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        document.cookie = "UID=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
 
     //設定傳送數值延遲
