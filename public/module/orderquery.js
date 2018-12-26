@@ -142,7 +142,7 @@ var getOrderID = function (UID, callback) {
 }
 
 var deleteOrderProduct = function (UID, productName, callback) {
-    var queryCmd = "Delete project.order_product FROM project.order_product,project.product,project.orders WHERE project.orders.user_ID = " + UID + " AND Product_ID = product.ID AND product.name = '" + productName + "' AND Order_ID = orders.ID";
+    var queryCmd = "Delete project.order_product FROM project.order_product,project.product,project.orders WHERE project.orders.user_ID = " + UID + " AND Product_ID = product.ID AND product.name = '" + productName + "' AND Order_ID = orders.ID AND orders.ischeckout = false";
     console.log(queryCmd);
     db.query(queryCmd, function (err) {
         if (err) throw err;
@@ -151,7 +151,7 @@ var deleteOrderProduct = function (UID, productName, callback) {
 }
 
 var emptyCart = function (UID) {
-    var queryCmd = "Delete project.order_product FROM project.order_product,project.product,project.orders WHERE project.orders.user_ID = " + UID + " AND Product_ID = product.ID  AND Order_ID = orders.ID";
+    var queryCmd = "Delete project.order_product FROM project.order_product,project.product,project.orders WHERE project.orders.user_ID = " + UID + " AND Product_ID = product.ID  AND Order_ID = orders.ID AND orders.ischeckout = false";
     console.log(queryCmd);
     db.query(queryCmd, function (err) {
         if (err) throw err;
