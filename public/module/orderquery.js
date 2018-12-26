@@ -186,6 +186,15 @@ var readOrderProduct = function (order_ID, callback) {
     })
 }
 
+var getOrderList = function (callback) {
+    var queryCmd = "SELECT ID FROM project.orders WHERE isCheckout = true";
+    db.query(queryCmd, function (err, result) {
+        if (err) throw err;
+        callback(result);
+    })
+
+}
+
 module.exports.InsertCartData = InsertCartData;
 module.exports.getCartInformation = getCartInformation;
 module.exports.setOrderInformation = setOrderInformation;
@@ -197,3 +206,4 @@ module.exports.readOrderProduct = readOrderProduct;
 module.exports.setDelivery = setDelivery;
 module.exports.getAllDeliveryState = getAllDeliveryState;
 module.exports.getDeliveryState = getDeliveryState;
+module.exports.getOrderList = getOrderList;

@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta name="google-signin-client_id" content="493398495425-2ng1oqj2unv82lgbt99mj1sf6fi0qpo9.apps.googleusercontent.com">
+	<link rel="Shortcut Icon" type="image/x-icon" href="img/index/logo.png" />
 	<title>思汗牧場</title>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -31,6 +32,8 @@
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/login_style.css">
 	<link rel="stylesheet" href="css/signup_style.css">
+	<script src="js/index.js"></script>
+	<script src="js/aboutFarm.js"></script>
 </head>
 
 <body id="paint">
@@ -44,7 +47,8 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item" id="nav-user"></li>
+					<li class="nav-item" id="nav-logout"></li>
+                    <li class="nav-item" id="nav-user"></li>
 					<li class="nav-item">
 						<a class="nav-link" href="cart.html">
 							<i class="fas fa-shopping-cart icon_img"></i>購物車</a>
@@ -78,72 +82,8 @@
 				</div>
 		</div>
 		<div class="imgsection" id="aboutfarm">
-			<div class="container">
-					<div class="row">
-						<div class="col-6">
-							<div class="polaroid">
-								<img src="img/腳踏車.jpg" alt="5 Terre" style="width:100%;">
-								<div class="container">
-									<h2>腳踏車</h2>
-									<h4>費用:50元 (半小時)</h4>
-									<h3>設施狀態:</h3>
-								</div>
-							</div>
-						</div>
-						<div class="col-6">
-							<div class="polaroid">
-								<img src="img/碰碰船.jpg" alt="5 Terre" style="width:100%;height:361px;">
-								<div class="container">
-									<h2>碰碰船</h2>
-									<h4>費用:100元 (半小時)</h4>
-									<h3>設施狀態:</h3>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-6">
-							<div class="polaroid">
-								<img src="img/腳踏船.jpg" alt="5 Terre" style="width:100%">
-								<div class="container">
-									<h2>腳踏船</h2>
-									<h4>費用:100元 (半小時)</h4>
-									<h3>設施狀態:</h3>
-								</div>
-							</div>
-						</div>
-						<div class="col-6">
-							<div class="polaroid">
-								<img src="img/擠牛奶.jpg" alt="5 Terre" style="width:100%">
-								<div class="container">
-									<h2>體驗擠牛奶</h2>
-									<h4>費用:100元 (10分鐘)</h4>
-									<h3>設施狀態:</h3>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-6">
-							<div class="polaroid">
-								<img src="img/餵牛.jpg" alt="5 Terre" style="width:100%">
-								<div class="container">
-									<h2>體驗餵牛</h2>
-									<h4>費用:100元</h4>
-									<h3>設施狀態:</h3>
-								</div>
-							</div>
-						</div>
-						<div class="col-6">
-							<div class="polaroid">
-								<img src="img/騎牛.jpg" alt="5 Terre" style="width:100%;height:328px;">
-								<div class="container">
-									<h2>體驗騎牛</h2>
-									<h4>費用:100元 (5分鐘)</h4>
-									<h3>設施狀態:</h3>
-								</div>
-							</div>
-						</div>
-					</div>
+			<div id="farmInformation" class="container">
+				<!--動態生成-->
 			</div>
 		</div>
   </div>

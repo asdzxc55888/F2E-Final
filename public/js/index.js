@@ -23,7 +23,7 @@ $(document).ready(function () {
         console.log('SignIn ' + user);
         document.getElementById("nav-login").style.display = 'none';
         $('#nav-login').removeClass('nav-item');
-        document.getElementById("nav-user").innerHTML = "<a class='nav-link' href='user.html'><i class='far fa-user icon_img'></i>你好!" + user + "</a>";
+        document.getElementById("nav-user").innerHTML = "<a class='nav-link' href='userMenu.html'><i class='far fa-user icon_img'></i>你好!" + user + "</a>";
         document.getElementById("nav-logout").innerHTML = "<a class='nav-link' href='#'>登出</a>";
     } else {
         console.log("not logged in");

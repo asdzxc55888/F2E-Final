@@ -4,7 +4,7 @@ $(document).ready(function () {
     $(readOrderList());
     function readOrderList(){
         var tableHtml = "";
-        $.post('/getOrderList',{
+        $.post('/getUserOrderList',{
             UID : readCookie('UID')
         },function(data,state){
             console.log(data)

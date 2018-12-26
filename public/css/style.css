@@ -98,6 +98,88 @@ header
 .cooperimg{
     padding-left: 5%;
 }
+
+.userMenu{
+	text-align:center;
+	min-height:500px;
+}
+
+.userMenu h1{
+	margin-left:auto;
+	margin-right:auto;
+	padding-bottom:10px;
+	border-bottom:1px solid black;
+	width:70%;
+}
+
+.userMenu a{
+	margin:0px auto; 
+	font-size:24px;
+	color:black;
+}
+
+#facilityButton{
+	width:60%;
+	border-radius:10px;
+	background: rgb(230,230,230);
+	padding-bottom:20px;
+}
+
+#facilityButton h4{
+	text-align:left;
+}
+
+#facilityButton button{
+	height:30px;
+	border-radius:5px;
+	background: rgb(0,110,46);
+	color: #fff;
+	display:inline-block;
+	padding:0px 10px;
+	margin:5px 10px;
+}
+
+#productButton{
+	width:60%;
+	border-radius:10px;
+	background: rgb(230,230,230);
+	padding-bottom:20px;
+}
+
+#productButton h4{
+	text-align:left;
+}
+
+#productButton button{
+	height:30px;
+	border-radius:5px;
+	background: rgb(0,110,46);
+	color: #fff;
+	display:inline-block;
+	padding:0px 10px;
+	margin:5px 10px;
+}
+
+.editbody{
+	margin-top:20px;
+}
+
+.editbody form{
+	margin-bottom:20px;
+}
+
+.choiceImageButton{
+	margin-left:57px;
+}
+
+#preview_img{
+	margin:10px auto;
+	width:300px;
+	height:300px;
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
 @media only screen and (max-width: 480px) {
     .footerp{
         text-align: center;

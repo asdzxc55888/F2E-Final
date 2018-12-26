@@ -95,6 +95,37 @@ app.post('/login.html',function(req,res){
   });
 });
 
+////////////////////////
+
+app.get('/aboutfarm.html',function(req,res){
+  console.log('use about farm page');
+  fs.createReadStream("./public/aboutfarm.html").pipe(res);
+});
+
+app.get('/userMenu.html',function(req,res){
+  console.log('use user menu page');
+  fs.createReadStream("./public/userMenu.html").pipe(res);
+});
+
+app.get('/manageFacility.html',function(req,res){
+  console.log('use manage facility page');
+  fs.createReadStream("./public/manageFacility.html").pipe(res);
+});
+
+app.get('/manageProduct.html',function(req,res){
+  console.log('use manage product page');
+  fs.createReadStream("./public/manageProduct.html").pipe(res);
+});
+
+app.get('/OrderInformation.html',function(req,res){
+  console.log('use manage product page');
+  fs.createReadStream("./public/OrderInformation.html").pipe(res);
+});
+
+
+
+////////////////////////
+
 function SignUp(email, pass, username, phone, address, birthday, name, callback) {
   let usernum = 0;
   let data = {
@@ -308,6 +339,12 @@ app.post('/checkout',function(req,res){
 })
 
 app.post('/getOrderList',function(req,res){
+  orderquery.getOrderList(function(result){
+    res.send(result);
+  })
+})
+
+app.post('/getUserOrderList',function(req,res){
   var UID =req.body.UID;
   orderquery.getUserOrderList(UID,function(result){
     res.send(result);
@@ -335,11 +372,148 @@ app.post('/getDeliveryState',function(req,res){
   })
 })
 
-app.post('/getDeliveryState',function(req,res){
+app.post('/getAllDeliveryState',function(req,res){
   orderquery.getAllDeliveryState(function(result){
     res.send(result);
   })
 })
+
+///////////////////////////////////////////
+
+app.post('/getFarmInformation', function(req, res) {
+	db.query('SELECT * FROM Farm_Information', function(err, result) {
+		if(err) throw err;
+		console.log('update farm information');
+		res.send(result);
+	});
+});
+
+app.post('/getFacilityInformation', function(req, res) {
+	db.query('SELECT * FROM Farm_Information WHERE name="' + req.body.name + '"', function(err, result) {
+		if(err) throw err;
+		res.send(result);
+	});
+});
+
+app.post('/getProducts', function(req, res) {
+	db.query('SELECT * FROM Product', function(err, result) {
+		if(err) throw err;
+		res.send(result);
+	});
+});
+
+app.post('/getProductInformation', function(req, res) {
+	db.query('SELECT * FROM Product, Product_Category WHERE name="' + req.body.name + '" AND ID=Product_ID', function(err, result) {
+		if(err) throw err;
+		res.send(result);
+	});
+});
+
+app.post('/getUserMenu', function(req, res) {
+	db.query('SELECT level FROM User WHERE ID=' + req.body.ID, function(err, result) {
+		if(err) throw err;
+		if (result[0].level == 1) res.send('manager');
+		else res.send('user');
+	});
+});
+
+app.post('/addFacility', function(req, res) {
+	db.query('SELECT * FROM Farm_Information WHERE name="' + req.body.name + '"', function(err, result) {
+		if(err) throw err;
+		if(result.length != 0) res.send('失敗，設施名稱重複');
+		else if(req.body.name=='' || req.body.state=='' || req.body.imagePath=='') res.send('失敗，請填滿空格');
+		else {
+			var path = '';
+			if(req.body.imagePath.substring(0,1) == 'C:')
+				path = 'img/' + req.body.imagePath.substring(12, req.body.imagePath.length);
+			else
+				path = req.body.imagePath;
+			db.query('SELECT * FROM Farm_Information', function(err, result) {
+				if(err) throw err;
+				db.query('INSERT INTO Farm_Information VALUES (' + result[result.length - 1].ID + 1 + ', "' + req.body.name + '", "' + req.body.state + '", "' + path + '")', function(err, result) {
+					if(err) throw err;
+					res.send('成功新增設施資訊');
+				});
+			});
+		}
+	});
+});
+
+app.post('/editFacility', function(req, res) {
+	db.query('SELECT * FROM Farm_Information WHERE name="' + req.body.name + '"', function(err, result) {
+		if(err) throw err;
+		if(result.length != 0 && req.body.name != req.body.previousName) res.send('失敗，設施名稱重複');
+		else if(req.body.name=='' || req.body.state=='' || req.body.imagePath=='') res.send('失敗，請填滿空格');
+		else {
+			db.query('UPDATE Farm_Information SET name="' + req.body.name + '", state="' + req.body.state + '", imagePath="' + req.body.imagePath + '" WHERE name="' + req.body.previousName + '"', function(err, result) {
+				if(err) throw err;
+				res.send('成功修改設施資訊');
+			});
+		}
+	});
+});
+
+app.post('/deleteFacility', function(req, res) {
+	db.query('DELETE FROM Farm_Information WHERE name="' + req.body.name + '"', function(err, result) {
+		if(err) throw err;
+		res.send('成功刪除設施資訊');
+	});
+});
+
+app.post('/addProduct', function(req, res) {
+	db.query('SELECT * FROM Product WHERE name="' + req.body.name + '"', function(err, result) {
+		if(err) throw err;
+		if(result.length != 0) res.send('失敗，商品名稱重複');
+		else if(req.body.name=='' || req.body.price=='' || req.body.category=='' || req.body.storage=='' || req.body.imagePath=='') res.send('失敗，請填滿空格');
+		else {
+			var path = '';
+			if(req.body.imagePath.substring(0,1) == 'C:')
+				path = 'img/' + req.body.imagePath.substring(12, req.body.imagePath.length);
+			else
+				path = req.body.imagePath;
+			db.query('SELECT * FROM Product', function(err, result) {
+				if(err) throw err;
+				var newID = result[result.length - 1].ID + 1;
+				db.query('INSERT INTO Product VALUES (' + newID + ', ' + req.body.price + ', "' + req.body.name + '", ' + req.body.storage + ', "' + path + '")', function(err, result) {
+					if(err) throw err;
+					db.query('INSERT INTO Product_Category VALUES ("' + req.body.category + '", ' + newID +')', function(err, result) {
+						if(err) throw err;
+						res.send('成功新增商品資訊');
+					});
+				});
+			});
+		}
+	});
+});
+
+app.post('/editProduct', function(req, res) {
+	db.query('SELECT * FROM Product WHERE name="' + req.body.name + '"', function(err, result) {
+		if(err) throw err;
+		if(result.length != 0 && req.body.name != req.body.previousName) res.send('失敗，商品名稱重複');
+		else if(req.body.name=='' || req.body.price=='' || req.body.category=='' ||req.body.storage=='' || req.body.imagePath=='') res.send('失敗，請填滿空格');
+		else {
+			db.query('UPDATE Product SET name="' + req.body.name + '", price="' + req.body.price + '", storage=' + req.body.storage + ', imagePath="' + req.body.imagePath + '" WHERE name="' + req.body.previousName + '"', function(err, result) {
+				if(err) throw err;
+				db.query('SELECT ID FROM Product WHERE name="' + req.body.previousName + '"', function(err, result) {
+					if(err) throw err;
+					db.query('UPDATE Product_Category SET category="' + req.body.category + '" WHERE product_ID=' + result[0].ID, function(err, result) {
+						if(err) throw err;
+						res.send('成功修改商品資訊');
+					});
+				});
+			});
+		}
+	});
+});
+
+app.post('/deleteProduct', function(req, res) {
+	db.query('DELETE FROM Product WHERE name="' + req.body.name + '"', function(err, result) {
+		if(err) throw err;
+		res.send('成功刪除設施資訊');
+	});
+});
+
+///////////////////
 
 //建立server
 var server = https.createServer(serverOption, app, function () {

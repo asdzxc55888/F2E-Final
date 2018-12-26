@@ -15,7 +15,7 @@ $(document).ready(function () {
             $("#orderListtbody").html(tableHtml);
         })
         var $deliveryState = $("#delivery0");
-        $.post('/getDeliveryState',function(data ,state){
+        $.post('/getAllDeliveryState',function(data ,state){
             for(i=0;i<data.length;i++){
                 $deliveryState = $("#delivery" + i);
                 $deliveryState.val(data[i].State);
