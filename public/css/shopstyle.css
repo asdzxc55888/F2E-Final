@@ -67,6 +67,11 @@ h1, h2, h3, h4, h5, h6 {
 	padding-top: 3.5em;
 }
 
+#category{
+	margin-left:60%;
+	font-size:16px;
+}
+
 #products ul {
 	margin: 1.5em 0;
 	padding: 0;
@@ -148,6 +153,10 @@ form input.qty {
 	text-align: center;
 	border-radius: 4px;
 	border: 1px solid #a00;
+}
+
+.btn, a.btn:hover {
+	color:white;
 }
 
 

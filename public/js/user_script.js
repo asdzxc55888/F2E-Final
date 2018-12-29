@@ -50,6 +50,7 @@ $(document).ready(function () {
         const username = $username.val();
         const name = $name.val();
         const address = $address.val();
+		console.log($birthday+2);
         console.log("修改")
         $.post("/user.html", {
             UserID: userID,

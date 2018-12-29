@@ -11,7 +11,7 @@ function readURL(input){
        var img = document.getElementById(imageTagID);
 
        img.setAttribute("src", e.target.result)
-
+	  
     }
 
     reader.readAsDataURL(input.files[0]);

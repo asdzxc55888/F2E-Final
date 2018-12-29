@@ -180,6 +180,12 @@ header
 	background-size:cover;
 }
 
+#facilityImage{
+	width:100%;
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
 @media only screen and (max-width: 480px) {
     .footerp{
         text-align: center;

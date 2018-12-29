@@ -30,11 +30,11 @@ function InsertCartData2(order_ID, Product_ID, qty) {
 
 function getProductQty(order_ID, Product_ID, callback) {
     queryCmd = "SELECT Quantity FROM project.order_product WHERE Order_ID = " + order_ID + " AND Product_ID = " + Product_ID;
-    console.log(queryCmd);
+    //console.log(queryCmd);
     var _qty = 0;
     db.query(queryCmd, function (err, result) {
         if (err) throw err;
-        console.log(result);
+        //console.log(result);
         Object.keys(result).forEach(function (key) {
             var row = result[key];
             _qty = row.Quantity;
@@ -49,9 +49,9 @@ function getProductQty(order_ID, Product_ID, callback) {
 }
 
 function InsertOrderProduct(order_ID, Product_ID, qty) {
-    console.log("InsertOrderProduct");
+    console.log("Insert Order Product");
     queryCmd = "INSERT INTO project.order_product (Order_ID, Product_ID, Quantity) VALUES (" + order_ID + "," + Product_ID + "," + qty + ")";
-    console.log(queryCmd);
+    //console.log(queryCmd);
     db.query(queryCmd, function (err, result) {
         if (err) throw err;
 
@@ -60,7 +60,7 @@ function InsertOrderProduct(order_ID, Product_ID, qty) {
 
 function UpdataOrderProduct(order_ID, Product_ID, qty) {
     queryCmd = "Update project.order_product Set Quantity = " + qty + " Where Order_ID = " + order_ID + " And Product_ID = " + Product_ID;
-    console.log(queryCmd);
+    //console.log(queryCmd);
     db.query(queryCmd, function (err, result) {
         if (err) throw err;
 
@@ -75,7 +75,7 @@ var getCartInformation = function (UID, callback) {
         queryCmd = "SELECT product.name,Quantity,product.price FROM project.order_product,project.product WHERE Order_ID = " + order_ID + " AND Product_ID = product.ID ";
         db.query(queryCmd, function (err, result) {
             if (err) throw err;
-            console.log(result);
+            //console.log(result);
             callback(result);
         });
     })
@@ -85,7 +85,7 @@ var getCartInformation = function (UID, callback) {
 var setOrderInformation = function (UID, Address, Date, Time, TotalPrice) {
     getOrderID(UID, function (order_ID) {
         var queryCmd = "Update project.orders Set Address = '" + Address + "' , Date = '" + Date + "' , Time = '" + Time + "' , ischeckout = true , Total_Price = " + TotalPrice + " Where ID = " + order_ID;
-        console.log(queryCmd);
+        //console.log(queryCmd);
         db.query(queryCmd, function () {
             InsertDelivery(order_ID)
         });
@@ -132,7 +132,7 @@ var getOrderID = function (UID, callback) {
     var queryCmd = "SELECT ID,Date FROM project.orders WHERE isCheckout = false AND User_ID = " + UID;
     db.query(queryCmd, function (err, result) {
         if (err) throw err;
-        console.log(result);
+        //console.log(result);
         if (result.length == 0) {
             callback(0);
         } else {
@@ -142,8 +142,17 @@ var getOrderID = function (UID, callback) {
 }
 
 var deleteOrderProduct = function (UID, productName, callback) {
+	var quantity = 0;
+	db.query('SELECT Quantity FROM order_product, product, orders WHERE orders.user_ID = ' + UID + ' AND Product_ID = product.ID AND product.name = "' + productName + '" AND Order_ID = orders.ID', function (err, result) {
+		if (err) throw err;
+		quantity = result[0].Quantity;
+		db.query('UPDATE Product SET storage=storage+' + quantity + ' WHERE name="' + productName + '"', function (err, result) {
+			if (err) throw err;
+			console.log(productName + "'s storages add " + quantity);
+		});		
+	});
     var queryCmd = "Delete project.order_product FROM project.order_product,project.product,project.orders WHERE project.orders.user_ID = " + UID + " AND Product_ID = product.ID AND product.name = '" + productName + "' AND Order_ID = orders.ID";
-    console.log(queryCmd);
+    //console.log(queryCmd);
     db.query(queryCmd, function (err) {
         if (err) throw err;
         callback();
@@ -151,8 +160,21 @@ var deleteOrderProduct = function (UID, productName, callback) {
 }
 
 var emptyCart = function (UID) {
+	var productName = '';
+	var quantity = 0;
+	db.query('SELECT name, Quantity FROM order_product, product, orders WHERE orders.user_ID = ' + UID + ' AND Product_ID = product.ID AND Order_ID = orders.ID', function (err, result) {
+		if (err) throw err;
+		for(i = 0; i < result.length; i++) {
+			productName = result[i].name;
+			quantity = result[i].Quantity;
+			db.query('UPDATE Product SET storage=storage+' + quantity + ' WHERE name="' + productName + '"', function (err, result) {
+				if (err) throw err;
+				console.log('reload products storage');
+			});
+		}
+	});
     var queryCmd = "Delete project.order_product FROM project.order_product,project.product,project.orders WHERE project.orders.user_ID = " + UID + " AND Product_ID = product.ID  AND Order_ID = orders.ID";
-    console.log(queryCmd);
+    //console.log(queryCmd);
     db.query(queryCmd, function (err) {
         if (err) throw err;
     })
@@ -160,7 +182,7 @@ var emptyCart = function (UID) {
 
 var readUserInformation = function (UID, callback) {
     var queryCmd = "Select project.user.Name,Email,Address FROM project.user WHERE project.user.ID = " + UID;
-    console.log(queryCmd);
+    //console.log(queryCmd);
     db.query(queryCmd, function (err, result) {
         if (err) throw err;
         callback(result);
@@ -186,6 +208,14 @@ var readOrderProduct = function (order_ID, callback) {
     })
 }
 
+var getOrderList = function (callback) {
+    var queryCmd = "SELECT ID FROM project.orders WHERE isCheckout = true";
+    db.query(queryCmd, function (err, result) {
+        if (err) throw err;
+        callback(result);
+    })
+}
+
 module.exports.InsertCartData = InsertCartData;
 module.exports.getCartInformation = getCartInformation;
 module.exports.setOrderInformation = setOrderInformation;
@@ -197,3 +227,4 @@ module.exports.readOrderProduct = readOrderProduct;
 module.exports.setDelivery = setDelivery;
 module.exports.getAllDeliveryState = getAllDeliveryState;
 module.exports.getDeliveryState = getDeliveryState;
+module.exports.getOrderList = getOrderList;

@@ -23,13 +23,18 @@ $(document).ready(function () {
             Pass: pass
         },
         function(data,status){
-            var CurrentUser=data.CurrentUser;
-            var ID=data.UID;
-            setCookie(CurrentUser,'currentUser');
-            setCookie(ID,'UID');
-            console.log("登入成功");
-            alert("成功!");
-            document.location.href="index.html";
+			if(data == '密碼錯誤') {
+				alert('密碼錯誤');
+			}
+			else {
+				var CurrentUser=data.CurrentUser;
+				var ID=data.UID;
+				setCookie(CurrentUser,'currentUser');
+				setCookie(ID,'UID');
+				console.log("登入成功");
+				alert("成功!");
+				document.location.href="index.html";
+			}
         })
     });
 

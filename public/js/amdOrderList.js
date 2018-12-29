@@ -7,7 +7,6 @@ $(document).ready(function () {
         $.post('/getOrderList',{
             UID : readCookie('UID')
         },function(data,state){
-            console.log(data)
             for(i=0;i<data.length;i++){
                 tableHtml += "<tr><td>" + data[i].ID + "</td><td><button type='button' class='btn btn-outline-success' id = 'orderButton' value = '" + parseInt(i) + "' onclick='ButtonClick(this)'' >更多資訊</button></td>"
                 tableHtml += "<td><select id='delivery" + i + "'><option value='準備中'>準備中</option><option value='出貨中'>出貨中</option><option value='訂單完成'>訂單完成</option></select></td></tr>"
@@ -15,7 +14,7 @@ $(document).ready(function () {
             $("#orderListtbody").html(tableHtml);
         })
         var $deliveryState = $("#delivery0");
-        $.post('/getDeliveryState',function(data ,state){
+        $.post('/getAllDeliveryState',function(data ,state){
             for(i=0;i<data.length;i++){
                 $deliveryState = $("#delivery" + i);
                 $deliveryState.val(data[i].State);

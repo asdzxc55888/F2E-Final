@@ -7,7 +7,6 @@ $(document).ready(function () {
         $.post('/getOrderList',{
             UID : readCookie('UID')
         },function(data,state){
-            console.log(data)
             for(i=0;i<data.length;i++){
                 tableHtml += "<tr><td>" + data[i].ID + "</td><td><p>" + data[i].Date.substring(0,9) + "</p></td><td><p>" + data[i].Total_Price + "</p></td><td><button type='button' class='btn btn-outline-success' id = 'orderButton' value = '" + parseInt(i) + "' onclick='ButtonClick(this)'' >更多資訊</button></td>"
             }

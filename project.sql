@@ -45,15 +45,15 @@ PRIMARY KEY (ID),
 UNIQUE (Email));
 
 CREATE TABLE delivery
-(ID INT NOT NULL,
+(ID INT NOT NULL AUTO_INCREMENT,
 Order_ID INT NOT NULL,
-Date DATE NOT NULL,
+Date DATE DEFAULT NULL,
 State TEXT NOT NULL,
 PRIMARY KEY (ID),
 KEY order_id_idx (Order_ID));
 
 CREATE TABLE orders
-(ID INT NOT NULL,
+(ID INT NOT NULL AUTO_INCREMENT,
 Total_Price INT NOT NULL,
 Address TEXT DEFAULT NULL,
 Date DATE DEFAULT NULL,
@@ -115,10 +115,10 @@ INSERT INTO Farm_Information
 VALUES		(006, "體驗騎牛", "正常開放", "img/img_ride_cow.jpg");
 
 INSERT INTO user
-VALUES		(1, "test@gmail.com", "123", "0965010920", "何韋辰", "123", "2001-11-00", 1, "好棒"), (2, "user@gmail.com", "456", "0800092000", "何媽媽", "456", "2001-02-28", 0, "bang");
+VALUES		(1, "test@gmail.com", md5("123"), "0965010920", "何韋辰", "123", "2001-11-00", 1, "好棒"), (2, "user@gmail.com", md5("456"), "0800092000", "何媽媽", "456", "2001-02-28", 0, "bang");
 
 INSERT INTO orders 
-VALUES (1,0,NULL,NULL,NULL,1,0),(11,780,"新北市蘆洲區永樂街26巷28號4樓","2018-12-25","18:21:37",1,1),(12,240,"新北市蘆洲區永樂街26巷28號4樓","2018-12-25","18:28:01",1,1),(13,1310,"新北市蘆洲區永樂街26巷28號4樓","2018-12-25","20:59:54",1,1);
+VALUES (1,0,NULL,NULL,NULL,1,0);
 
 INSERT INTO order_product
-VALUES (1,1,4), (1,2,1), (13,1,1), (13,2,1), (13,4,10);
+VALUES (1,1,4), (1,2,1);

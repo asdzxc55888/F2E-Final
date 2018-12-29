@@ -173,7 +173,7 @@ function LogIn(email, pass, callback) {
   }
   db.query("select password AS CheckPass from user where ? ", data, function (error, results) {
     if (error) throw error;
-    //if (results[0].CheckPass == md5(pass)) {
+    if (results[0].CheckPass == md5(pass)) {
       db.query('select username AS name, ID AS uid from user where ? ', data, function (error, results) {
         if (error) throw error;
         let currentUser = results[0].name;
@@ -182,12 +182,11 @@ function LogIn(email, pass, callback) {
         returnDATA.CurrentUser = currentUser;
         callback(null, returnDATA);
       })
-    /*}
+    }
     else {
-		console.log(results[0].CheckPass);
-		console.log(md5(pass));
-      console.log('我們不一樣');
-    }*/
+      console.log('密碼錯誤');
+	  callback(null,'密碼錯誤');
+    }
   });
 }
 
@@ -219,11 +218,14 @@ function confirmData(UserID, Phone, Birthday, Username, Name, Address, callback)
   }
   db.query('UPDATE user SET ? WHERE ID = ' + UserID, data, function (error, results) {
     if (error) {
-      callback(null, 'fail');
-      throw error;
+        callback(null, 'fail');
+        throw error;
     }
     else {
-      callback(null, 'success');
+		db.query('UPDATE user SET Birthday = Birthday + 1 WHERE ID = ' + UserID, function (error, results) {
+			if(error) throw error;
+		});
+        callback(null, 'success');
     }
   });
 };
@@ -243,7 +245,6 @@ function getData(User, callback) {
     else {
       data.Phone = results[0].Phone;
       data.Birthday = results[0].Birthday;
-      console.log(data.Birthday);
       data.Name = results[0].Name;
       data.Address = results[0].Address;
       callback(null, data);
@@ -291,17 +292,16 @@ app.post('/addOrder', function(req, res) {
 	var quantity = req.body.quantity;
 	var price = req.body.price;
 	var UID = req.body.UID;
-	db.query('SELECT storage FROM Product WHERE name="' + name + '"', function (err, result) {
+	db.query('SELECT * FROM Product WHERE name="' + name + '"', function (err, result) {
 		if (err) throw err;
 		var product_ID = result[0].ID;
-		console.log("productID:"+product_ID);
 		if (result[0].storage < 1) res.send('error');
 		else {
-			db.query('UPDATE Product SET storage=storage-' + req.body.quantity + ' WHERE name="' + req.body.name + '"', function (err, result) {
+			db.query('UPDATE Product SET storage=storage-' + quantity + ' WHERE name="' + name + '"', function (err, result) {
 				if (err) throw err;
 				console.log("Update " + name + "'s storages");
 				res.send('success');
-				orderquery.InsertCartData(UID, product_ID, req.body.quantity);
+				orderquery.InsertCartData(UID, product_ID, quantity);
 			});
 		}
     });
@@ -345,6 +345,12 @@ app.post('/checkout',function(req,res){
 })
 
 app.post('/getOrderList',function(req,res){
+  orderquery.getOrderList(function(result){
+    res.send(result);
+  })
+})
+
+app.post('/getUserOrderList',function(req,res){
   var UID =req.body.UID;
   orderquery.getUserOrderList(UID,function(result){
     res.send(result);
@@ -372,7 +378,7 @@ app.post('/getDeliveryState',function(req,res){
   })
 })
 
-app.post('/getDeliveryState',function(req,res){
+app.post('/getAllDeliveryState',function(req,res){
   orderquery.getAllDeliveryState(function(result){
     res.send(result);
   })
