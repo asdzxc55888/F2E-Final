@@ -9,8 +9,9 @@ $(document).ready(function() {
 		$.post('/getCategories', function(data, status){
 			var categories = '<option>全部</option>';
 			for(i = 0; i < data.length; i++) {
-				categories += '<option>' + data[i].category + '</option>';
+				if(data[i].category != '其他') categories += '<option>' + data[i].category + '</option>';
 			}
+			categories += '<option>其他</option>';
 			$('#category').html(categories);
 		});
 	});
@@ -61,7 +62,8 @@ function UpdateProductInformation(data, status){
 		}
 		productInformation += '<li class="col-12 col-sm-12 col-md-6 col-lg-4"><div class="product-image"><img src="' + data[i].imagePath + '"/></div><div class="product-description"><h3 class="product-name">' + data[i].name + '</h3><p class="product-price">$ ' + data[i].price + '</p><form id="order' + data[i].ID + 'Data" action="#" method="POST" class="add-to-cart"><input type="hidden" name="name" value="' + data[i].name + '"/><input type="hidden" name="price" value="' + data[i].price + '"/><div><label for="qty">數量</label><input type="text" name="qty" class="qty" value="1"/></div><p><input name="' + data[i].ID + '" id="addButton" type="submit" value="' + buttonText + '" class="btn" ' + buttonEnabled + '/></p></form></div></li>';
 	}
-	productInformation += '</ul>'
+	productInformation += '</ul>';
+	if(data.length == 0) productInformation = '<p style="margin:0 auto;">暫無商品</p>';
 	$('#products').html(productInformation);
 }
 

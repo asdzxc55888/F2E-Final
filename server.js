@@ -222,9 +222,6 @@ function confirmData(UserID, Phone, Birthday, Username, Name, Address, callback)
         throw error;
     }
     else {
-		db.query('UPDATE user SET Birthday = Birthday + 1 WHERE ID = ' + UserID, function (error, results) {
-			if(error) throw error;
-		});
         callback(null, 'success');
     }
   });
@@ -234,7 +231,7 @@ function getData(User, callback) {
   let userData = {
     username: User
   }
-  let data = {
+  let Data = {
     Phone: '',
     Birthday: '',
     Name: '',
@@ -243,11 +240,15 @@ function getData(User, callback) {
   db.query('SELECT Phone, Birthday, Name, Address FROM user WHERE ? ', userData, function (error, results) {
     if (error) throw error;
     else {
-      data.Phone = results[0].Phone;
-      data.Birthday = results[0].Birthday;
-      data.Name = results[0].Name;
-      data.Address = results[0].Address;
-      callback(null, data);
+		//加一天
+		var date = new Date(results[0].Birthday.valueOf());
+		date.setDate(date.getDate() + 1);
+
+        Data.Phone = results[0].Phone;
+        Data.Birthday = date;
+        Data.Name = results[0].Name;
+        Data.Address = results[0].Address;
+        callback(null, Data);
     }
   });
 }
@@ -496,15 +497,15 @@ app.post('/editProduct', function(req, res) {
 		if(result.length != 0 && req.body.name != req.body.previousName) res.send('失敗，商品名稱重複');
 		else if(req.body.name=='' || req.body.price=='' || req.body.category=='' ||req.body.storage=='' || req.body.imagePath=='') res.send('失敗，請填滿空格');
 		else {
-			db.query('UPDATE Product SET name="' + req.body.name + '", price="' + req.body.price + '", storage=' + req.body.storage + ', imagePath="' + req.body.imagePath + '" WHERE name="' + req.body.previousName + '"', function(err, result) {
+			db.query('SELECT ID FROM Product WHERE name="' + req.body.previousName + '"', function(err, result) {
 				if(err) throw err;
-				db.query('SELECT ID FROM Product WHERE name="' + req.body.previousName + '"', function(err, result) {
+				db.query('UPDATE Product_Category SET category="' + req.body.category + '" WHERE product_ID=' + result[0].ID, function(err, result) {
 					if(err) throw err;
-					db.query('UPDATE Product_Category SET category="' + req.body.category + '" WHERE product_ID=' + result[0].ID, function(err, result) {
-						if(err) throw err;
-						res.send('成功修改商品資訊');
-					});
 				});
+				db.query('UPDATE Product SET name="' + req.body.name + '", price="' + req.body.price + '", storage=' + req.body.storage + ', imagePath="' + req.body.imagePath + '" WHERE name="' + req.body.previousName + '"', function(err, result) {
+					if(err) throw err;
+				});
+				res.send('成功修改商品資訊');
 			});
 		}
 	});
@@ -513,7 +514,7 @@ app.post('/editProduct', function(req, res) {
 app.post('/deleteProduct', function(req, res) {
 	db.query('DELETE FROM Product WHERE name="' + req.body.name + '"', function(err, result) {
 		if(err) throw err;
-		res.send('成功刪除設施資訊');
+		res.send('成功刪除商品資訊');
 	});
 });
 

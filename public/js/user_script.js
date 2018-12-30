@@ -31,7 +31,7 @@ $(document).ready(function () {
         },
         function(data,status){
             var Bday = data.Birthday.split('T');
-            console.log('Birthday:'+Bday[0]);
+            //console.log('Birthday:'+Bday[0]);
             $username.val(user);
             $birthday.val(Bday[0]);
             $phone.val(data.Phone);

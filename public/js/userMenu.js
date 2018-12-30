@@ -14,7 +14,7 @@ $(document).ready(function() {
 				menu += '<a href="user.html"><修改使用者資料></a><br><br>';
 			}
 			else {
-				menu += '<a href="OrderInformation.html"><查看訂單資訊></a><br><br>';
+				menu += '<a href="userOrderInformation.html"><查看訂單資訊></a><br><br>';
 				menu += '<a href="user.html"><修改使用者資料></a><br><br>';
 			}
 			$('#menuContent').html(menu);

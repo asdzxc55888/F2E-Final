@@ -22,7 +22,7 @@ CREATE TABLE Product_Category
 (category VARCHAR(10) NOT NULL, 
 product_ID INT NOT NULL, 
 PRIMARY KEY(category, product_ID),
-FOREIGN KEY(product_ID) REFERENCES Product(ID));
+FOREIGN KEY(product_ID) REFERENCES Product(ID) ON DELETE CASCADE);
 
 CREATE TABLE Farm_Information
 (ID INT NOT NULL,
